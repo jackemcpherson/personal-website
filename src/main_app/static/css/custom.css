@@ -1,319 +1,340 @@
-/* Personal Website Custom Styles */
+/*
+================================================
+Personal Website Custom Stylesheet - CR-001
+Target Aesthetic: 1960s Corporate/Print Design
+================================================
+*/
 
-/* Color palette and base styles */
+/* 1. Design System: Variables for Color and Typography */
 :root {
     --background-color: #F5F5F5;
     --text-color: #111111;
-    --accent-color: #FF5733;
-    --sidebar-bg: #ffffff;
-    --border-color: #e0e0e0;
-    --link-hover: #e74c3c;
+    --accent-color: #00A0B0; /* Vintage Cyan */
+    --link-hover-color: #D35400; /* Burnt Orange */
+    --sidebar-bg-color: #111111;
+    --sidebar-text-color: #F5F5F5;
+    --meta-text-color: #666;
+
+    --font-heading: 'Oswald', sans-serif;
+    --font-body: 'Garamond', serif;
+    --font-mono: 'Roboto Mono', monospace;
 }
 
-/* Typography */
+/* 2. Global Typography & Body Styles */
 body {
-    font-family: 'Lora', serif;
+    font-family: var(--font-body);
     background-color: var(--background-color);
     color: var(--text-color);
-    line-height: 1.6;
+    line-height: 1.7;
+    font-size: 110%; /* Increase base font size for readability */
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: 'Montserrat', sans-serif;
-    font-weight: 600;
-    color: var(--text-color);
-}
-
-/* Layout */
-.container-fluid {
-    max-width: 1400px;
-    margin: 0 auto;
-    padding: 0;
-}
-
-.grid {
-    display: grid;
-    grid-template-columns: 280px 1fr;
-    min-height: 100vh;
-    gap: 0;
-    width: 100%;
-    box-sizing: border-box;
-}
-
-/* Sidebar Navigation - Override Pico.css nav styles */
-nav.sidebar {
-    background-color: var(--sidebar-bg);
-    border-right: 2px solid var(--border-color);
-    padding: 2rem 1.5rem;
-    overflow-y: auto;
-    display: block;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: flex-start;
-}
-
-.sidebar {
-    background-color: var(--sidebar-bg);
-    border-right: 2px solid var(--border-color);
-    padding: 2rem 1.5rem;
-    overflow-y: auto;
-}
-
-/* Override Pico.css nav header styles */
-nav.sidebar header,
-.sidebar header {
-    width: 100%;
-    margin: 0;
-    padding: 0;
-    display: block;
-}
-
-nav.sidebar header h2,
-.sidebar header h2 {
-    margin-bottom: 2rem;
-    font-size: 1.5rem;
+    font-family: var(--font-heading);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
     font-weight: 700;
-    width: 100%;
-}
-
-.sidebar header h2 a {
-    color: var(--accent-color);
-    text-decoration: none;
-    transition: color 0.2s ease;
-}
-
-.sidebar header h2 a:hover {
-    color: var(--link-hover);
-}
-
-/* Override Pico.css nav ul styles */
-nav.sidebar ul.nav-links,
-.nav-links {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    margin-bottom: 2rem;
-    display: block;
-    width: 100%;
-    flex-direction: column;
-}
-
-.nav-links li {
-    margin-bottom: 0.5rem;
-}
-
-.nav-links a {
-    display: block;
-    padding: 0.5rem 0;
-    color: var(--text-color);
-    text-decoration: none;
-    font-weight: 500;
-    transition: color 0.2s ease;
-}
-
-.nav-links a:hover {
-    color: var(--accent-color);
-}
-
-.recent-posts h3 {
-    font-size: 1.1rem;
-    margin-bottom: 1rem;
-    color: var(--accent-color);
-    border-bottom: 1px solid var(--border-color);
-    padding-bottom: 0.5rem;
-}
-
-.recent-posts ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-}
-
-.recent-posts li {
-    margin-bottom: 0.75rem;
-    width: 100%;
-    display: block;
-}
-
-.recent-posts li:last-child {
-    margin-bottom: 0;
-}
-
-.recent-posts a {
-    display: block;
-    color: var(--text-color);
-    text-decoration: none;
-    font-size: 0.9rem;
-    line-height: 1.4;
-    transition: color 0.2s ease;
-}
-
-.recent-posts a:hover {
-    color: var(--accent-color);
-}
-
-/* Main Content */
-.content {
-    padding: 2rem;
-    min-width: 0;
-    overflow: hidden;
-}
-
-/* Post styling */
-.post-header {
-    margin-bottom: 2rem;
-    border-bottom: 2px solid var(--border-color);
-    padding-bottom: 1rem;
-}
-
-.post-title {
-    font-size: 2.5rem;
-    margin-bottom: 0.5rem;
-    color: var(--text-color);
-}
-
-.post-meta {
-    color: #666;
-    font-size: 0.9rem;
     margin-bottom: 1rem;
 }
 
-.post-tags {
-    margin-top: 0.5rem;
-}
-
-.tag {
-    display: inline-block;
-    background-color: var(--accent-color);
-    color: white;
-    padding: 0.25rem 0.5rem;
-    margin-right: 0.5rem;
-    margin-bottom: 0.25rem;
-    border-radius: 3px;
-    font-size: 0.8rem;
-    text-decoration: none;
-    transition: background-color 0.2s ease;
-}
-
-.tag:hover {
-    background-color: var(--link-hover);
-    color: white;
-}
-
-/* Blog index styling */
-.blog-post {
-    margin-bottom: 3rem;
-    padding-bottom: 2rem;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.blog-post:last-child {
-    border-bottom: none;
-}
-
-.blog-post h2 {
-    margin-bottom: 0.5rem;
-}
-
-.blog-post h2 a {
-    color: var(--text-color);
-    text-decoration: none;
-    transition: color 0.2s ease;
-}
-
-.blog-post h2 a:hover {
-    color: var(--accent-color);
-}
-
-.blog-post-meta {
-    color: #666;
-    font-size: 0.9rem;
-    margin-bottom: 1rem;
-}
-
-.blog-post-excerpt {
-    margin-bottom: 1rem;
-    font-size: 1rem;
-    line-height: 1.6;
-}
-
-/* Code styling */
-pre {
-    background-color: #f8f8f8;
-    border: 1px solid #e0e0e0;
-    border-radius: 4px;
-    padding: 1rem;
-    overflow-x: auto;
-    font-size: 0.9rem;
-}
-
-code {
-    background-color: #f8f8f8;
-    padding: 0.2rem 0.4rem;
-    border-radius: 3px;
-    font-size: 0.9rem;
-}
-
-pre code {
-    background-color: transparent;
-    padding: 0;
-}
-
-/* Syntax highlighting */
-.highlight {
-    background-color: #f8f8f8;
-    border-radius: 4px;
-    padding: 1rem;
-    overflow-x: auto;
-}
-
-/* Responsive design */
-@media screen and (max-width: 768px) {
-    .grid {
-        grid-template-columns: 1fr;
-    }
-    
-    .sidebar {
-        position: relative;
-        width: 100%;
-        height: auto;
-        border-right: none;
-        border-bottom: 2px solid var(--border-color);
-        padding: 1rem;
-    }
-    
-    .content {
-        margin-left: 0;
-        padding: 1rem;
-    }
-    
-    .post-title {
-        font-size: 2rem;
-    }
-}
-
-/* Links */
 a {
     color: var(--accent-color);
+    text-decoration: none;
+    transition: color 0.2s ease-in-out;
 }
 
 a:hover {
-    color: var(--link-hover);
+    color: var(--link-hover-color);
 }
 
-/* Override Pico.css container */
+/* 3. Layout: Graphic Blocks with No Borders */
 .container-fluid {
     padding: 0;
     margin: 0;
     max-width: none;
     width: 100%;
-    box-sizing: border-box;
 }
 
-/* Ensure proper spacing */
-article, section {
+.grid {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    min-height: 100vh;
+    gap: 0;
+}
+
+/* 4. Sidebar: High-Contrast Block */
+.sidebar {
+    background-color: var(--sidebar-bg-color);
+    color: var(--sidebar-text-color);
+    padding: 2.5rem;
+    overflow-y: auto;
+    display: block;
+    width: 300px;
+    min-height: 100vh;
+}
+
+.sidebar header {
     margin-bottom: 2rem;
+    width: 100%;
+}
+
+.sidebar header h2 {
+    margin: 0;
+    margin-bottom: 0;
+    width: 100%;
+}
+
+.sidebar header h2 a {
+    color: var(--accent-color);
+    font-size: 1.8rem;
+    display: block;
+    width: 100%;
+}
+
+.sidebar header h2 a:hover {
+    color: var(--link-hover-color);
+}
+
+.sidebar .nav-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    margin-bottom: 3rem;
+    width: 100%;
+}
+
+.sidebar .nav-links li {
+    margin-bottom: 0.75rem;
+    width: 100%;
+}
+
+.sidebar .nav-links a {
+    color: var(--sidebar-text-color);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 1.2rem;
+    display: block;
+    padding: 0;
+    width: 100%;
+    text-decoration: none;
+}
+
+.sidebar .nav-links a:hover {
+    color: var(--accent-color);
+}
+
+.sidebar .recent-posts {
+    width: 100%;
+    margin-top: 0;
+}
+
+.sidebar .recent-posts h3 {
+    color: var(--accent-color);
+    border-bottom: 1px solid #444;
+    padding-bottom: 0.5rem;
+    margin-bottom: 1.5rem;
+    margin-top: 0;
+    width: 100%;
+}
+
+.sidebar .recent-posts ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+}
+
+.sidebar .recent-posts li {
+    margin-bottom: 1.5rem;
+    width: 100%;
+}
+
+.sidebar .recent-posts a {
+    color: var(--sidebar-text-color);
+    font-weight: 400;
+    font-family: var(--font-body);
+    display: block;
+    text-decoration: none;
+    line-height: 1.4;
+}
+
+.sidebar .recent-posts a:hover {
+    color: var(--accent-color);
+}
+
+.sidebar .recent-posts small {
+    display: block;
+    font-family: var(--font-mono);
+    color: #999;
+    font-size: 0.8rem;
+    margin-top: 0.5rem;
+}
+
+
+/* 5. Main Content Area */
+.content {
+    padding: 2.5rem 4rem;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.post-header {
+    border-bottom: 3px solid var(--text-color);
+    margin-bottom: 2rem;
+    padding-bottom: 1.5rem;
+}
+
+.post-title {
+    font-size: 3.5rem;
+    line-height: 1.1;
+    margin-bottom: 1rem;
+}
+
+.post-meta, .blog-post-meta, .tag-meta {
+    font-family: var(--font-mono);
+    font-size: 0.8rem;
+    color: var(--meta-text-color);
+    text-transform: uppercase;
+}
+
+/* 6. Tag & Label Styling */
+.tag {
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    background-color: transparent;
+    border: 1px solid var(--accent-color);
+    color: var(--accent-color);
+    padding: 0.25rem 0.75rem;
+    margin-right: 0.5rem;
+    text-transform: uppercase;
+    display: inline-block;
+    border-radius: 0; /* Sharp corners for print feel */
+    font-weight: 500;
+    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
+}
+
+.tag:hover {
+    background-color: var(--accent-color);
+    color: white;
+}
+
+/* 7. Blog Index Specifics */
+.blog-post {
+    margin-bottom: 3rem;
+    padding-bottom: 3rem;
+    border-bottom: 1px solid #ddd;
+}
+.blog-post:last-child {
+    border-bottom: none;
+}
+.blog-post h2 a {
+    color: var(--text-color);
+}
+.blog-post h2 a:hover {
+    color: var(--accent-color);
+}
+.blog-post-excerpt {
+    font-size: 1.1rem;
+    margin: 1rem 0;
+}
+
+
+/* 8. Code Block Styling */
+pre, .highlight {
+    border: 1px solid #ddd;
+    background-color: #fff;
+    padding: 1.5rem;
+    overflow-x: auto;
+    font-size: 0.9rem;
+    border-radius: 0;
+}
+code {
+    font-family: var(--font-mono);
+    background-color: #eee;
+    padding: 0.2em 0.4em;
+    font-size: 85%;
+}
+pre code {
+    background: none;
+    padding: 0;
+    font-size: 100%;
+}
+
+
+/* 9. Responsive Design */
+@media screen and (max-width: 768px) {
+    body { font-size: 100%; }
+    .grid { grid-template-columns: 1fr; }
+    .sidebar { border-right: none; border-bottom: 2px solid #111; }
+    .content { padding: 1.5rem; }
+    .post-title { font-size: 2.2rem; }
+}
+
+/* 10. Pico.css Overrides - Remove default nav styling */
+nav.sidebar, .sidebar {
+    background-color: var(--sidebar-bg-color) !important;
+    padding: 2.5rem !important;
+    display: block !important;
+    width: 300px !important;
+    min-height: 100vh !important;
+    position: relative !important;
+}
+
+nav.sidebar ul, .sidebar ul {
+    flex-direction: column !important;
+    display: block !important;
+    width: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+}
+
+nav.sidebar header, .sidebar header {
+    width: 100% !important;
+    margin-bottom: 2rem !important;
+    display: block !important;
+}
+
+nav.sidebar li, .sidebar li {
+    width: 100% !important;
+    display: block !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+}
+
+nav.sidebar a, .sidebar a {
+    padding-left: 0 !important;
+    margin-left: 0 !important;
+}
+
+/* Force proper display for all nav elements */
+nav {
+    display: block !important;
+}
+
+/* Override any Pico.css grid or flexbox on nav */
+nav ul {
+    display: block !important;
+    flex-direction: column !important;
+}
+
+/*
+================================================
+Fixes for CR-FIX-001
+================================================
+*/
+
+/* Fix for invisible text in main content */
+.content h1,
+.content h2,
+.content p {
+    color: var(--text-color);
+}
+
+/* Ensure blog post excerpts are also the correct color */
+.blog-post-excerpt {
+    color: var(--text-color);
 }

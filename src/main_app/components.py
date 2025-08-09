@@ -23,7 +23,7 @@ def Layout(request, *content, title: str):
             Link(rel="preconnect", href="https://fonts.googleapis.com"),
             Link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin=True),
             Link(
-                href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,500;0,600;1,400&family=Montserrat:wght@400;500;600;700&display=swap",
+                href="https://fonts.googleapis.com/css2?family=Garamond:wght@400;700&family=Oswald:wght@700&family=Roboto+Mono:wght@400;500&display=swap",
                 rel="stylesheet",
             ),
             Link(rel="stylesheet", href="/static/css/custom.css"),
@@ -31,39 +31,40 @@ def Layout(request, *content, title: str):
         ),
         Body(
             Div(
-                Div(
-                    Nav(
-                        Header(H2(A("Personal Blog", href="/"))),
+                # Sidebar Navigation
+                Nav(
+                    Header(H2(A("Personal Blog", href="/"))),
+                    Ul(
+                        Li(A("Home", href="/")),
+                        Li(A("About", href="/about")),
+                        cls="nav-links",
+                    ),
+                    # This is the corrected 'Recent Posts' section from Issue #2
+                    Section(
+                        H3("Recent Posts"),
                         Ul(
-                            Li(A("Home", href="/")),
-                            Li(A("About", href="/about")),
-                            cls="nav-links",
-                        ),
-                        Section(
-                            H3("Recent Posts"),
-                            Ul(
-                                *[
-                                    Li(
-                                        A(
-                                            post["title"],
-                                            href=f"/posts/{post['slug']}",
-                                            title=post["title"],
-                                        ),
-                                        Small(post["date"].strftime("%b %d, %Y")),
-                                    )
-                                    for post in request.state.recent_posts
-                                ]
-                            ),
-                            cls="recent-posts",
+                            *[
+                                Li(
+                                    A(
+                                        post["title"],
+                                        href=f"/posts/{post['slug']}",
+                                        title=post["title"],
+                                    ),
+                                    Small(post["date"].strftime("%b %d, %Y")),
+                                )
+                                for post in request.state.recent_posts
+                            ]
                         )
                         if request.state.recent_posts
-                        else None,
-                        cls="sidebar",
+                        else P("No posts yet.", style="font-style: italic; color: #999;"),
+                        cls="recent-posts",
                     ),
-                    Main(*content, cls="content"),
-                    cls="grid",
+                    cls="sidebar",
                 ),
-                cls="container-fluid",
+                # Page-specific content is injected here
+                Main(*content, cls="content"),
+                # The .grid class is now the direct parent
+                cls="grid container-fluid",
             )
         ),
     )
