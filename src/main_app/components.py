@@ -23,7 +23,7 @@ def Layout(request, *content, title: str):
             Link(rel="preconnect", href="https://fonts.googleapis.com"),
             Link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin=True),
             Link(
-                href="https://fonts.googleapis.com/css2?family=Garamond:wght@400;700&family=Oswald:wght@700&family=Roboto+Mono:wght@400;500&display=swap",
+                href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400;500;600&display=swap",
                 rel="stylesheet",
             ),
             Link(rel="stylesheet", href="/static/css/custom.css"),
@@ -33,7 +33,7 @@ def Layout(request, *content, title: str):
             Div(
                 # Sidebar Navigation
                 Nav(
-                    Header(H2(A("Personal Blog", href="/"))),
+                    Header(H2(A("Personal Blog", href="/")), cls="sidebar-header"),
                     Ul(
                         Li(A("Home", href="/")),
                         Li(A("About", href="/about")),
@@ -50,7 +50,7 @@ def Layout(request, *content, title: str):
                                         href=f"/posts/{post['slug']}",
                                         title=post["title"],
                                     ),
-                                    Small(post["date"].strftime("%b %d, %Y")),
+                                    Small(post["date"].strftime("%b %d, %Y"), cls="post-date"),
                                 )
                                 for post in request.state.recent_posts
                             ]
@@ -63,8 +63,7 @@ def Layout(request, *content, title: str):
                 ),
                 # Page-specific content is injected here
                 Main(*content, cls="content"),
-                # The .grid class is now the direct parent
-                cls="grid container-fluid",
+                cls="grid-container",
             )
         ),
     )
