@@ -62,10 +62,20 @@ This is a personal website built with FastHTML (Python web framework). The proje
 - Navigation shows recent posts globally via middleware
 
 ### Design System
-- **Colors**: Background `#F5F5F5`, Text `#111111`, Accent `#FF5733`
-- **Fonts**: Montserrat (headings), Lora (body) via Google Fonts
-- **Layout**: Left-hand navigation, responsive design
-- **Framework**: Pico.css with custom CSS overrides
+- **Theme**: Minimalist corporate-modern inspired by 1960s IBM design
+- **Colors**: 
+  - Background: `#FFFFFF` (light), `#F8F8F8` (subtle), `#F1F1F1` (muted)
+  - Text: `#111111` (primary), `#555555` (secondary)  
+  - Accent: `#006699` (IBM Heritage Blue)
+  - Borders: `#D0D0D0`
+- **Typography**: 
+  - Sans-serif: IBM Plex Sans (headings, navigation, UI)
+  - Serif: IBM Plex Serif (body text, readable content)
+  - Monospace: IBM Plex Mono (code, metadata)
+- **Spacing**: 8px baseline grid system (`--space-1` through `--space-24`)
+- **Breakpoints**: Mobile ≤480px, Tablet 481-960px, Desktop 961-1440px, Wide >1440px
+- **Layout**: Left sidebar navigation (280px), responsive grid system
+- **Framework**: Pico.css with comprehensive custom CSS overrides using design tokens
 
 ## Code Quality Standards
 
@@ -138,6 +148,7 @@ The project exists in planning phase with detailed documentation in:
 - "Implement vertical layout for recent posts navigation" 
 - "Add FastHTML blog application with routes and content parsing"
 - "Update responsive design for mobile navigation"
+- "Fix navigation menu alignment with enhanced Pico.css overrides"
 
 ### Pre-Commit Workflow Example
 ```bash
@@ -154,3 +165,17 @@ uv run pytest
 git add .
 git commit -m "Your detailed commit message"
 ```
+
+## Design System Implementation Notes
+
+### Navigation Layout Issues
+- **Problem**: Pico.css overrides can cause navigation menu items to lose proper spacing
+- **Solution**: Use `!important` declarations for critical navigation layout properties
+- **Key CSS Classes**: `.nav-links`, `.sidebar .nav-links li`, `.sidebar .nav-links a`
+- **Required Properties**: `display: flex !important; flex-direction: column !important;` for proper vertical layout
+
+### CSS Override Strategy
+- Primary stylesheet: `src/main_app/static/css/custom.css`
+- Design tokens defined as CSS custom properties in `:root`
+- Comprehensive override section at bottom of CSS file to handle Pico.css conflicts
+- Use semantic class names that match the design system structure
