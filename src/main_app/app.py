@@ -37,7 +37,7 @@ app = FastHTML(
         Link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin=True),
         Link(
             rel="stylesheet",
-            href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Lora:wght@400;500;600&display=swap",
+            href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400;500;600&display=swap",
         ),
         Link(rel="stylesheet", href="/static/css/custom.css"),
     )
