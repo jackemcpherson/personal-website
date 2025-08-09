@@ -60,3 +60,6 @@ Thumbs.db
 
 # UV lock file (optional - uncomment if you want to ignore)
 # uv.lock
+
+# Security - never commit session keys
+.sesskey

@@ -33,16 +33,18 @@ class TestRoutes:
         self.client = TestClient(app)
 
     def test_home_route_exists(self):
-        """Test that home route is accessible."""
+        """Test that home route is accessible and contains expected content."""
         response = self.client.get("/")
-        # Should not return 404
-        assert response.status_code != 404
+        assert response.status_code == 200
+        assert "Personal Blog" in response.text
+        assert "Welcome to my personal blog" in response.text
 
     def test_about_route_exists(self):
-        """Test that about route is accessible."""
+        """Test that about route is accessible and contains expected content."""
         response = self.client.get("/about")
-        # Should not return 404
-        assert response.status_code != 404
+        assert response.status_code == 200
+        assert "About Me" in response.text
+        assert "developer passionate about creating" in response.text
 
     def test_nonexistent_post_returns_404(self):
         """Test that non-existent posts return 404."""
@@ -50,7 +52,8 @@ class TestRoutes:
         assert response.status_code == 404
 
     def test_tags_route_exists(self):
-        """Test that tags route is accessible."""
+        """Test that tags route is accessible and contains expected content."""
         response = self.client.get("/tags")
-        # Should not return 404
-        assert response.status_code != 404
+        assert response.status_code == 200
+        assert "All Tags" in response.text
+        assert "Browse all" in response.text

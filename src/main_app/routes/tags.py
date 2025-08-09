@@ -2,6 +2,7 @@
 
 from fasthtml.common import *
 
+from ..components import Layout
 from ..utils.content import get_all_tags, load_posts_by_tag
 
 
@@ -26,7 +27,7 @@ def register_tag_routes(app):
         posts = load_posts_by_tag(tag)
         all_tags = get_all_tags()
 
-        content = Main(
+        page_content = (
             Header(
                 H1(f"Posts tagged with '{tag}'", cls="post-title"),
                 P(
@@ -83,69 +84,9 @@ def register_tag_routes(app):
             if all_tags
             else None,
             Footer(Nav(A("← Back to Home", href="/", cls="back-link")), cls="tag-footer"),
-            cls="content",
         )
 
-        return Html(
-            Head(
-                Meta(charset="UTF-8"),
-                Meta(name="viewport", content="width=device-width, initial-scale=1.0"),
-                Title(f"Posts tagged '{tag}' - Personal Blog"),
-                Link(
-                    rel="stylesheet",
-                    href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css",
-                ),
-                Link(rel="preconnect", href="https://fonts.googleapis.com"),
-                Link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin=True),
-                Link(
-                    rel="stylesheet",
-                    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Lora:wght@400;500;600&display=swap",
-                ),
-                Link(rel="stylesheet", href="/static/css/custom.css"),
-                Style(request.state.pygments_css),
-            ),
-            Body(
-                Div(
-                    Div(
-                        Nav(
-                            Header(H2(A("Personal Blog", href="/"))),
-                            Ul(
-                                Li(A("Home", href="/")),
-                                Li(A("About", href="/about")),
-                                cls="nav-links",
-                            ),
-                            Section(
-                                H3("Recent Posts"),
-                                Ul(
-                                    *[
-                                        Li(
-                                            A(
-                                                post["title"][:40] + "..."
-                                                if len(post["title"]) > 40
-                                                else post["title"],
-                                                href=f"/posts/{post['slug']}",
-                                                title=post["title"],
-                                            ),
-                                            Small(post["date"].strftime("%b %d, %Y")),
-                                        )
-                                        for post in request.state.recent_posts
-                                    ]
-                                )
-                                if request.state.recent_posts
-                                else P("No recent posts."),
-                                cls="recent-posts",
-                            )
-                            if request.state.recent_posts
-                            else None,
-                            cls="sidebar",
-                        ),
-                        content,
-                        cls="grid",
-                    ),
-                    cls="container-fluid",
-                )
-            ),
-        )
+        return Layout(request, *page_content, title=f"Posts tagged '{tag}'")
 
     @app.get("/tags")
     def all_tags_page(request):
@@ -159,7 +100,7 @@ def register_tag_routes(app):
         """
         all_tags = get_all_tags()
 
-        content = Main(
+        page_content = (
             Header(
                 H1("All Tags", cls="post-title"),
                 P(f"Browse all {len(all_tags)} available tags.", cls="tag-meta"),
@@ -175,66 +116,6 @@ def register_tag_routes(app):
                 cls="all-tags-section",
             ),
             Footer(Nav(A("← Back to Home", href="/", cls="back-link")), cls="tags-footer"),
-            cls="content",
         )
 
-        return Html(
-            Head(
-                Meta(charset="UTF-8"),
-                Meta(name="viewport", content="width=device-width, initial-scale=1.0"),
-                Title("All Tags - Personal Blog"),
-                Link(
-                    rel="stylesheet",
-                    href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css",
-                ),
-                Link(rel="preconnect", href="https://fonts.googleapis.com"),
-                Link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin=True),
-                Link(
-                    rel="stylesheet",
-                    href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Lora:wght@400;500;600&display=swap",
-                ),
-                Link(rel="stylesheet", href="/static/css/custom.css"),
-                Style(request.state.pygments_css),
-            ),
-            Body(
-                Div(
-                    Div(
-                        Nav(
-                            Header(H2(A("Personal Blog", href="/"))),
-                            Ul(
-                                Li(A("Home", href="/")),
-                                Li(A("About", href="/about")),
-                                cls="nav-links",
-                            ),
-                            Section(
-                                H3("Recent Posts"),
-                                Ul(
-                                    *[
-                                        Li(
-                                            A(
-                                                post["title"][:40] + "..."
-                                                if len(post["title"]) > 40
-                                                else post["title"],
-                                                href=f"/posts/{post['slug']}",
-                                                title=post["title"],
-                                            ),
-                                            Small(post["date"].strftime("%b %d, %Y")),
-                                        )
-                                        for post in request.state.recent_posts
-                                    ]
-                                )
-                                if request.state.recent_posts
-                                else P("No recent posts."),
-                                cls="recent-posts",
-                            )
-                            if request.state.recent_posts
-                            else None,
-                            cls="sidebar",
-                        ),
-                        content,
-                        cls="grid",
-                    ),
-                    cls="container-fluid",
-                )
-            ),
-        )
+        return Layout(request, *page_content, title="All Tags")
