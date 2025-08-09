@@ -2,7 +2,7 @@
 
 from fasthtml.common import *
 
-from ..utils.content import load_posts_by_tag, get_all_tags
+from ..utils.content import get_all_tags, load_posts_by_tag
 
 
 def register_tag_routes(app):
@@ -52,10 +52,7 @@ def register_tag_routes(app):
                         if post["excerpt"]
                         else None,
                         Div(
-                            *[
-                                A(post_tag, href=f"/tags/{post_tag}", cls="tag")
-                                for post_tag in post["tags"]
-                            ],
+                            *[A(post_tag, href=f"/tags/{post_tag}", cls="tag") for post_tag in post["tags"]],
                             cls="post-tags",
                         )
                         if post["tags"]
@@ -85,9 +82,7 @@ def register_tag_routes(app):
             )
             if all_tags
             else None,
-            Footer(
-                Nav(A("← Back to Home", href="/", cls="back-link")), cls="tag-footer"
-            ),
+            Footer(Nav(A("← Back to Home", href="/", cls="back-link")), cls="tag-footer"),
             cls="content",
         )
 
@@ -101,9 +96,7 @@ def register_tag_routes(app):
                     href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css",
                 ),
                 Link(rel="preconnect", href="https://fonts.googleapis.com"),
-                Link(
-                    rel="preconnect", href="https://fonts.gstatic.com", crossorigin=True
-                ),
+                Link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin=True),
                 Link(
                     rel="stylesheet",
                     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Lora:wght@400;500;600&display=swap",
@@ -181,9 +174,7 @@ def register_tag_routes(app):
                 ),
                 cls="all-tags-section",
             ),
-            Footer(
-                Nav(A("← Back to Home", href="/", cls="back-link")), cls="tags-footer"
-            ),
+            Footer(Nav(A("← Back to Home", href="/", cls="back-link")), cls="tags-footer"),
             cls="content",
         )
 
@@ -197,9 +188,7 @@ def register_tag_routes(app):
                     href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css",
                 ),
                 Link(rel="preconnect", href="https://fonts.googleapis.com"),
-                Link(
-                    rel="preconnect", href="https://fonts.gstatic.com", crossorigin=True
-                ),
+                Link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin=True),
                 Link(
                     rel="stylesheet",
                     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Lora:wght@400;500;600&display=swap",

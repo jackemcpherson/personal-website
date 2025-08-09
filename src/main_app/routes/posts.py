@@ -56,9 +56,7 @@ def register_post_routes(app):
                 NotStr(post["content"]),  # Raw HTML content from markdown
                 cls="post-content",
             ),
-            Footer(
-                Nav(A("← Back to Home", href="/", cls="back-link")), cls="post-footer"
-            ),
+            Footer(Nav(A("← Back to Home", href="/", cls="back-link")), cls="post-footer"),
             cls="content",
         )
 
@@ -72,9 +70,7 @@ def register_post_routes(app):
                     href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css",
                 ),
                 Link(rel="preconnect", href="https://fonts.googleapis.com"),
-                Link(
-                    rel="preconnect", href="https://fonts.gstatic.com", crossorigin=True
-                ),
+                Link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin=True),
                 Link(
                     rel="stylesheet",
                     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Lora:wght@400;500;600&display=swap",
@@ -104,11 +100,7 @@ def register_post_routes(app):
                                                 href=f"/posts/{recent_post['slug']}",
                                                 title=recent_post["title"],
                                             ),
-                                            Small(
-                                                recent_post["date"].strftime(
-                                                    "%b %d, %Y"
-                                                )
-                                            ),
+                                            Small(recent_post["date"].strftime("%b %d, %Y")),
                                         )
                                         for recent_post in request.state.recent_posts
                                     ]

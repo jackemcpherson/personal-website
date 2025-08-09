@@ -5,7 +5,7 @@ from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.requests import Request
 from starlette.responses import Response
 
-from .utils.content import load_recent_posts, get_pygments_css
+from .utils.content import get_pygments_css, load_recent_posts
 
 
 class NavigationMiddleware(BaseHTTPMiddleware):
@@ -50,8 +50,8 @@ app.mount("/static", StaticFiles(directory="src/main_app/static"), name="static"
 
 
 # Import and register routes
-from .routes.home import register_home_routes
 from .routes.about import register_about_routes
+from .routes.home import register_home_routes
 from .routes.posts import register_post_routes
 from .routes.tags import register_tag_routes
 
@@ -64,6 +64,4 @@ register_tag_routes(app)
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run(
-        app, host="0.0.0.0", port=8000, timeout_keep_alive=30, timeout_notify=30
-    )
+    uvicorn.run(app, host="0.0.0.0", port=8000, timeout_keep_alive=30, timeout_notify=30)

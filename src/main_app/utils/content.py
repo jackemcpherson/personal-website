@@ -1,14 +1,12 @@
 """Content management utilities for blog posts."""
 
-import os
-from datetime import datetime, date
+from datetime import date, datetime
 from pathlib import Path
 from typing import Any
 
 import frontmatter
 import markdown
 from pygments.formatters import HtmlFormatter
-from pygments.lexers import get_lexer_by_name
 
 
 def _get_posts_directory() -> Path:
