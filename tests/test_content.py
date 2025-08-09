@@ -26,12 +26,12 @@ def temp_posts_dir(monkeypatch):
 
         # Clear cache before and after tests
         clear_content_cache()
-        
+
         # Mock the posts directory path
         monkeypatch.setattr("src.main_app.utils.content._get_posts_directory", lambda: posts_dir)
 
         yield posts_dir
-        
+
         # Clear cache after test
         clear_content_cache()
 

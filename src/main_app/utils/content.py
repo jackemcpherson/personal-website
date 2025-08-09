@@ -167,7 +167,7 @@ def get_pygments_css() -> str:
 
 def clear_content_cache():
     """Clear cached content for testing purposes.
-    
+
     This function clears the LRU cache for content loading functions
     to ensure tests can run with fresh data.
     """
