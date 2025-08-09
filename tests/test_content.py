@@ -8,6 +8,7 @@ import pytest
 
 from src.main_app.utils.content import (
     _parse_post_file,
+    clear_content_cache,
     get_all_tags,
     load_all_posts,
     load_post,
@@ -23,10 +24,16 @@ def temp_posts_dir(monkeypatch):
         posts_dir = Path(temp_dir) / "posts"
         posts_dir.mkdir()
 
+        # Clear cache before and after tests
+        clear_content_cache()
+        
         # Mock the posts directory path
         monkeypatch.setattr("src.main_app.utils.content._get_posts_directory", lambda: posts_dir)
 
         yield posts_dir
+        
+        # Clear cache after test
+        clear_content_cache()
 
 
 @pytest.fixture

@@ -1,6 +1,7 @@
 """Content management utilities for blog posts."""
 
 from datetime import date, datetime
+from functools import lru_cache
 from pathlib import Path
 from typing import Any
 
@@ -72,6 +73,7 @@ def _parse_post_file(file_path: Path) -> dict[str, Any] | None:
         return None
 
 
+@lru_cache(maxsize=None)
 def load_all_posts() -> list[dict[str, Any]]:
     """Load all blog posts from the posts directory.
 
@@ -106,6 +108,7 @@ def load_recent_posts(limit: int = 3) -> list[dict[str, Any]]:
     return all_posts[:limit]
 
 
+@lru_cache(maxsize=128)
 def load_post(slug: str) -> dict[str, Any] | None:
     """Load a specific blog post by its slug.
 
@@ -160,3 +163,13 @@ def get_pygments_css() -> str:
     """
     formatter = HtmlFormatter(style="default", cssclass="highlight")
     return formatter.get_style_defs()
+
+
+def clear_content_cache():
+    """Clear cached content for testing purposes.
+    
+    This function clears the LRU cache for content loading functions
+    to ensure tests can run with fresh data.
+    """
+    load_all_posts.cache_clear()
+    load_post.cache_clear()
