@@ -1,18 +1,18 @@
 """Tests for content management utilities."""
 
 import tempfile
-from pathlib import Path
 from datetime import datetime
+from pathlib import Path
 
 import pytest
 
 from src.main_app.utils.content import (
+    _parse_post_file,
+    get_all_tags,
     load_all_posts,
-    load_recent_posts,
     load_post,
     load_posts_by_tag,
-    get_all_tags,
-    _parse_post_file,
+    load_recent_posts,
 )
 
 
@@ -24,9 +24,7 @@ def temp_posts_dir(monkeypatch):
         posts_dir.mkdir()
 
         # Mock the posts directory path
-        monkeypatch.setattr(
-            "src.main_app.utils.content._get_posts_directory", lambda: posts_dir
-        )
+        monkeypatch.setattr("src.main_app.utils.content._get_posts_directory", lambda: posts_dir)
 
         yield posts_dir
 

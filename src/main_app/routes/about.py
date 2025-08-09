@@ -82,9 +82,7 @@ def register_about_routes(app):
                     href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css",
                 ),
                 Link(rel="preconnect", href="https://fonts.googleapis.com"),
-                Link(
-                    rel="preconnect", href="https://fonts.gstatic.com", crossorigin=True
-                ),
+                Link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin=True),
                 Link(
                     rel="stylesheet",
                     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Lora:wght@400;500;600&display=swap",

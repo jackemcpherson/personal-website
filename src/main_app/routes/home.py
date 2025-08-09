@@ -28,7 +28,8 @@ def register_home_routes(app):
             Header(
                 H1("Personal Blog", cls="post-title"),
                 P(
-                    "Welcome to my personal blog where I write about technology, development, and other interesting topics.",
+                    "Welcome to my personal blog where I write about technology, development, "
+                    "and other interesting topics.",
                     cls="blog-intro",
                 ),
                 cls="post-header",
@@ -51,10 +52,7 @@ def register_home_routes(app):
                         if post["excerpt"]
                         else None,
                         Div(
-                            *[
-                                A(tag, href=f"/tags/{tag}", cls="tag")
-                                for tag in post["tags"]
-                            ],
+                            *[A(tag, href=f"/tags/{tag}", cls="tag") for tag in post["tags"]],
                             cls="post-tags",
                         )
                         if post["tags"]
@@ -80,9 +78,7 @@ def register_home_routes(app):
                     href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css",
                 ),
                 Link(rel="preconnect", href="https://fonts.googleapis.com"),
-                Link(
-                    rel="preconnect", href="https://fonts.gstatic.com", crossorigin=True
-                ),
+                Link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin=True),
                 Link(
                     rel="stylesheet",
                     href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&family=Lora:wght@400;500;600&display=swap",
