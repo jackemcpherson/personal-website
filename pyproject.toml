@@ -1,0 +1,39 @@
+[project]
+name = "personal-website"
+version = "0.1.0"
+description = "Personal blog and portfolio website built with FastHTML"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "python-fasthtml",
+    "python-frontmatter",
+    "markdown",
+    "pygments",
+    "uvicorn[standard]",
+]
+
+[project.optional-dependencies]
+dev = [
+    "ruff",
+    "pytest",
+    "pytest-asyncio",
+]
+
+[tool.ruff]
+line-length = 88
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I"]
+ignore = []
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+
+[dependency-groups]
+dev = [
+    "pytest>=8.4.1",
+    "pytest-asyncio>=1.1.0",
+    "ruff>=0.12.8",
+]

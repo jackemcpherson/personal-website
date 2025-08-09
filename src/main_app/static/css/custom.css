@@ -1,0 +1,319 @@
+/* Personal Website Custom Styles */
+
+/* Color palette and base styles */
+:root {
+    --background-color: #F5F5F5;
+    --text-color: #111111;
+    --accent-color: #FF5733;
+    --sidebar-bg: #ffffff;
+    --border-color: #e0e0e0;
+    --link-hover: #e74c3c;
+}
+
+/* Typography */
+body {
+    font-family: 'Lora', serif;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Montserrat', sans-serif;
+    font-weight: 600;
+    color: var(--text-color);
+}
+
+/* Layout */
+.container-fluid {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    min-height: 100vh;
+    gap: 0;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Sidebar Navigation - Override Pico.css nav styles */
+nav.sidebar {
+    background-color: var(--sidebar-bg);
+    border-right: 2px solid var(--border-color);
+    padding: 2rem 1.5rem;
+    overflow-y: auto;
+    display: block;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.sidebar {
+    background-color: var(--sidebar-bg);
+    border-right: 2px solid var(--border-color);
+    padding: 2rem 1.5rem;
+    overflow-y: auto;
+}
+
+/* Override Pico.css nav header styles */
+nav.sidebar header,
+.sidebar header {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    display: block;
+}
+
+nav.sidebar header h2,
+.sidebar header h2 {
+    margin-bottom: 2rem;
+    font-size: 1.5rem;
+    font-weight: 700;
+    width: 100%;
+}
+
+.sidebar header h2 a {
+    color: var(--accent-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.sidebar header h2 a:hover {
+    color: var(--link-hover);
+}
+
+/* Override Pico.css nav ul styles */
+nav.sidebar ul.nav-links,
+.nav-links {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 2rem;
+    display: block;
+    width: 100%;
+    flex-direction: column;
+}
+
+.nav-links li {
+    margin-bottom: 0.5rem;
+}
+
+.nav-links a {
+    display: block;
+    padding: 0.5rem 0;
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s ease;
+}
+
+.nav-links a:hover {
+    color: var(--accent-color);
+}
+
+.recent-posts h3 {
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+    color: var(--accent-color);
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 0.5rem;
+}
+
+.recent-posts ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.recent-posts li {
+    margin-bottom: 0.75rem;
+    width: 100%;
+    display: block;
+}
+
+.recent-posts li:last-child {
+    margin-bottom: 0;
+}
+
+.recent-posts a {
+    display: block;
+    color: var(--text-color);
+    text-decoration: none;
+    font-size: 0.9rem;
+    line-height: 1.4;
+    transition: color 0.2s ease;
+}
+
+.recent-posts a:hover {
+    color: var(--accent-color);
+}
+
+/* Main Content */
+.content {
+    padding: 2rem;
+    min-width: 0;
+    overflow: hidden;
+}
+
+/* Post styling */
+.post-header {
+    margin-bottom: 2rem;
+    border-bottom: 2px solid var(--border-color);
+    padding-bottom: 1rem;
+}
+
+.post-title {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+}
+
+.post-meta {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.post-tags {
+    margin-top: 0.5rem;
+}
+
+.tag {
+    display: inline-block;
+    background-color: var(--accent-color);
+    color: white;
+    padding: 0.25rem 0.5rem;
+    margin-right: 0.5rem;
+    margin-bottom: 0.25rem;
+    border-radius: 3px;
+    font-size: 0.8rem;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.tag:hover {
+    background-color: var(--link-hover);
+    color: white;
+}
+
+/* Blog index styling */
+.blog-post {
+    margin-bottom: 3rem;
+    padding-bottom: 2rem;
+    border-bottom: 1px solid var(--border-color);
+}
+
+.blog-post:last-child {
+    border-bottom: none;
+}
+
+.blog-post h2 {
+    margin-bottom: 0.5rem;
+}
+
+.blog-post h2 a {
+    color: var(--text-color);
+    text-decoration: none;
+    transition: color 0.2s ease;
+}
+
+.blog-post h2 a:hover {
+    color: var(--accent-color);
+}
+
+.blog-post-meta {
+    color: #666;
+    font-size: 0.9rem;
+    margin-bottom: 1rem;
+}
+
+.blog-post-excerpt {
+    margin-bottom: 1rem;
+    font-size: 1rem;
+    line-height: 1.6;
+}
+
+/* Code styling */
+pre {
+    background-color: #f8f8f8;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    padding: 1rem;
+    overflow-x: auto;
+    font-size: 0.9rem;
+}
+
+code {
+    background-color: #f8f8f8;
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+    font-size: 0.9rem;
+}
+
+pre code {
+    background-color: transparent;
+    padding: 0;
+}
+
+/* Syntax highlighting */
+.highlight {
+    background-color: #f8f8f8;
+    border-radius: 4px;
+    padding: 1rem;
+    overflow-x: auto;
+}
+
+/* Responsive design */
+@media screen and (max-width: 768px) {
+    .grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .sidebar {
+        position: relative;
+        width: 100%;
+        height: auto;
+        border-right: none;
+        border-bottom: 2px solid var(--border-color);
+        padding: 1rem;
+    }
+    
+    .content {
+        margin-left: 0;
+        padding: 1rem;
+    }
+    
+    .post-title {
+        font-size: 2rem;
+    }
+}
+
+/* Links */
+a {
+    color: var(--accent-color);
+}
+
+a:hover {
+    color: var(--link-hover);
+}
+
+/* Override Pico.css container */
+.container-fluid {
+    padding: 0;
+    margin: 0;
+    max-width: none;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Ensure proper spacing */
+article, section {
+    margin-bottom: 2rem;
+}
