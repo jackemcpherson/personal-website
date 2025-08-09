@@ -106,11 +106,19 @@ The project exists in planning phase with detailed documentation in:
 
 ## Git Workflow & Commit Standards
 
+### Pre-Commit Checklist (MANDATORY)
+1. **Format code**: Run `ruff format .` - must pass with no changes
+2. **Lint code**: Run `ruff check .` - must pass with no errors  
+3. **Run tests**: Run `uv run pytest` - all tests must pass
+4. **Fix any issues**: Address all formatting, linting, and test failures
+5. **Verify functionality**: Ensure the application still works as expected
+
 ### Commit Requirements
-- ALWAYS format code with `ruff format .` before commits
+- ALWAYS complete the full pre-commit checklist before commits
 - Create logical, detailed commits as development progresses
 - Never batch multiple unrelated changes into one commit
 - Each commit should represent a single logical unit of work
+- Never commit with failing tests or linting errors
 
 ### Commit Message Format
 - Use descriptive commit messages that explain WHAT and WHY
@@ -127,6 +135,22 @@ The project exists in planning phase with detailed documentation in:
 
 ### Examples of Good Commits
 - "Fix sidebar layout issues with CSS Grid and Pico.css conflicts"
-- "Implement vertical layout for recent posts navigation"
+- "Implement vertical layout for recent posts navigation" 
 - "Add FastHTML blog application with routes and content parsing"
 - "Update responsive design for mobile navigation"
+
+### Pre-Commit Workflow Example
+```bash
+# 1. Format code
+uv run ruff format .
+
+# 2. Check linting
+uv run ruff check .
+
+# 3. Run tests
+uv run pytest
+
+# 4. If all pass, commit
+git add .
+git commit -m "Your detailed commit message"
+```
