@@ -29,10 +29,6 @@ class NavigationMiddleware(BaseHTTPMiddleware):
 
 app = FastHTML(
     hdrs=(
-        Link(
-            rel="stylesheet",
-            href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css",
-        ),
         Link(rel="preconnect", href="https://fonts.googleapis.com"),
         Link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin=True),
         Link(
