@@ -26,15 +26,6 @@ def register_home_routes(app):
         posts = load_all_posts()
 
         page_content = (
-            Header(
-                H1("Personal Blog", cls="post-title"),
-                P(
-                    "Welcome to my personal blog where I write about technology, development, "
-                    "and other interesting topics.",
-                    cls="blog-intro",
-                ),
-                cls="post-header",
-            ),
             Section(
                 *[
                     Article(
