@@ -459,41 +459,39 @@ pre code {
     color: var(--color-accent-hover);
 }
 
-/* Subtle Theme Toggle Button - Fixed Bottom Left */
+/* Very Subtle Theme Toggle Button - Fixed Bottom Left */
 .theme-toggle {
     position: fixed;
-    bottom: var(--space-6);
-    left: var(--space-6);
-    width: 48px;
-    height: 48px;
+    bottom: var(--space-4);
+    left: var(--space-4);
+    width: 32px;
+    height: 32px;
     border-radius: 50%;
-    border: 1px solid var(--color-border);
-    background-color: var(--color-bg-light);
-    color: var(--color-text-primary);
-    font-size: 1.5rem;
+    border: none;
+    background-color: transparent;
+    color: var(--color-text-secondary);
+    font-size: 1rem;
     display: flex;
     align-items: center;
     justify-content: center;
     cursor: pointer;
-    transition: all var(--motion-duration-base) var(--motion-ease-standard);
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    z-index: var(--z-overlay);
+    transition: all var(--motion-duration-fast) var(--motion-ease-standard);
+    z-index: var(--z-base);
     font-family: system-ui, sans-serif;
     padding: 0;
     line-height: 1;
+    opacity: 0.4;
 }
 
 .theme-toggle:hover,
 .theme-toggle:focus {
-    background-color: var(--color-bg-subtle);
-    border-color: var(--color-accent);
-    transform: scale(1.05);
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    opacity: 0.8;
+    color: var(--color-text-primary);
     outline: none;
 }
 
 .theme-toggle:focus-visible {
-    outline: 2px solid var(--color-accent);
+    outline: 1px solid var(--color-accent);
     outline-offset: 2px;
 }
 
@@ -501,28 +499,23 @@ pre code {
 [data-theme="dark"] .theme-toggle,
 @media (prefers-color-scheme: dark) {
     .theme-toggle {
-        background-color: var(--color-bg-emphasis);
-        border-color: var(--color-border);
-        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
-        color: var(--color-text-primary);
+        color: var(--color-text-secondary);
+        opacity: 0.4;
     }
     
     .theme-toggle:hover,
     .theme-toggle:focus {
-        background-color: var(--color-bg-subtle);
-        border-color: var(--color-accent);
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        color: var(--color-text-primary);
+        opacity: 0.8;
     }
 }
 
 /* Mobile adjustments for theme toggle */
 @media (max-width: 480px) {
     .theme-toggle {
-        bottom: var(--space-4);
-        left: var(--space-4);
-        width: 44px;
-        height: 44px;
-        font-size: 1.25rem;
+        width: 28px;
+        height: 28px;
+        font-size: 0.875rem;
     }
 }
 
