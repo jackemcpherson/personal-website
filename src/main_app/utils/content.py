@@ -47,7 +47,6 @@ def _parse_post_file(file_path: Path) -> dict[str, Any] | None:
 
         html_content = md.convert(post.content)
 
-        # Normalize tags to lowercase for consistency
         tags = post.metadata.get("tags", [])
         normalized_tags = [tag.lower().strip() for tag in tags] if tags else []
 
@@ -67,7 +66,6 @@ def _parse_post_file(file_path: Path) -> dict[str, Any] | None:
             except ValueError:
                 post_data["date"] = datetime.now()
         elif isinstance(post_data["date"], date):
-            # Convert date to datetime
             post_data["date"] = datetime.combine(post_data["date"], datetime.min.time())
         elif post_data["date"] is None:
             post_data["date"] = datetime.now()

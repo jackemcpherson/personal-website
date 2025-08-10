@@ -31,7 +31,6 @@ def register_home_routes(app):
         all_posts = load_all_posts()
         total_posts = len(all_posts)
 
-        # Calculate pagination
         start = (page - 1) * posts_per_page
         end = start + posts_per_page
         posts = all_posts[start:end]
@@ -73,7 +72,6 @@ def register_home_routes(app):
                 else [P("No blog posts available yet.")],
                 cls="blog-index",
             ),
-            # Pagination
             Nav(
                 Div(
                     A("← Previous", href=f"/?page={page - 1}", cls="pagination-link prev")
@@ -95,10 +93,13 @@ def register_home_routes(app):
 
     @app.get("/feed.xml")
     def rss_feed():
-        """Generate RSS feed for the blog."""
-        posts = load_all_posts()[:10]  # Latest 10 posts
+        """Generate RSS feed for the blog.
 
-        # Generate RSS feed content
+        Returns:
+            XML RSS feed response containing the latest 10 blog posts
+        """
+        posts = load_all_posts()[:10]
+
         rss_items = []
         for post in posts:
             pub_date = post["date"].strftime("%a, %d %b %Y %H:%M:%S +0000")
@@ -129,10 +130,13 @@ def register_home_routes(app):
 
     @app.get("/sitemap.xml")
     def sitemap():
-        """Generate XML sitemap for the website."""
+        """Generate XML sitemap for the website.
+
+        Returns:
+            XML sitemap response containing all pages and blog posts
+        """
         posts = load_all_posts()
 
-        # Generate sitemap URLs
         urls = [
             """
             <url>
@@ -154,7 +158,6 @@ def register_home_routes(app):
             </url>""",
         ]
 
-        # Add post URLs
         for post in posts:
             last_mod = post["date"].strftime("%Y-%m-%d")
             urls.append(f"""
@@ -174,7 +177,11 @@ def register_home_routes(app):
 
     @app.get("/robots.txt")
     def robots_txt():
-        """Generate robots.txt file."""
+        """Generate robots.txt file for search engine crawlers.
+
+        Returns:
+            Plain text response containing robots.txt directives
+        """
         robots_content = """User-agent: *
 Allow: /
 

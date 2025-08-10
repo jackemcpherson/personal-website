@@ -24,15 +24,9 @@ def temp_posts_dir(monkeypatch):
         posts_dir = Path(temp_dir) / "posts"
         posts_dir.mkdir()
 
-        # Clear cache before and after tests
         clear_content_cache()
-
-        # Mock the posts directory path
         monkeypatch.setattr("src.main_app.utils.content._get_posts_directory", lambda: posts_dir)
-
         yield posts_dir
-
-        # Clear cache after test
         clear_content_cache()
 
 
@@ -132,7 +126,7 @@ This is a test post with **bold** text.
 
         result = _parse_post_file(post_path)
 
-        assert result is not None  # Should still parse, just with defaults
+        assert result is not None
         assert result["slug"] == "invalid"
         assert result["title"] == "Untitled"
 
@@ -150,11 +144,10 @@ class TestPostLoading:
         posts = load_all_posts()
 
         assert len(posts) == 3
-        assert posts[0]["title"] == "First Post"  # Most recent
+        assert posts[0]["title"] == "First Post"
         assert posts[1]["title"] == "Second Post"
-        assert posts[2]["title"] == "Third Post"  # Oldest
+        assert posts[2]["title"] == "Third Post"
 
-        # Verify they're in reverse chronological order
         for i in range(len(posts) - 1):
             assert posts[i]["date"] >= posts[i + 1]["date"]
 
@@ -162,7 +155,7 @@ class TestPostLoading:
         """Test loading recent posts with default limit."""
         posts = load_recent_posts()
 
-        assert len(posts) == 3  # All posts since we have fewer than default limit
+        assert len(posts) == 3
         assert posts[0]["title"] == "First Post"
 
     def test_load_recent_posts_custom_limit(self, sample_posts):

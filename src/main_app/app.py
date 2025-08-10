@@ -1,10 +1,12 @@
 """Main FastHTML application entry point."""
 
+from pathlib import Path
+
 from fasthtml.common import *
 from starlette.middleware.base import BaseHTTPMiddleware
 from starlette.middleware.gzip import GZipMiddleware
 from starlette.requests import Request
-from starlette.responses import Response
+from starlette.responses import HTMLResponse
 
 from .utils.content import get_pygments_css, load_recent_posts
 
@@ -24,7 +26,6 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
         """
         response = await call_next(request)
 
-        # Content Security Policy - strict policy for security
         csp = (
             "default-src 'self'; "
             "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
@@ -39,7 +40,6 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
         )
         response.headers["Content-Security-Policy"] = csp
 
-        # Additional security headers
         response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
         response.headers["X-Content-Type-Options"] = "nosniff"
         response.headers["X-Frame-Options"] = "DENY"
@@ -63,15 +63,12 @@ class CacheControlMiddleware(BaseHTTPMiddleware):
         """
         response = await call_next(request)
 
-        # Long cache for static assets
         if request.url.path.startswith("/static/"):
-            response.headers["Cache-Control"] = "public, max-age=31536000"  # 1 year
-        # No cache for health endpoint
+            response.headers["Cache-Control"] = "public, max-age=31536000"
         elif request.url.path == "/health":
             response.headers["Cache-Control"] = "no-store"
-        # Short cache for HTML pages
         else:
-            response.headers["Cache-Control"] = "public, max-age=300"  # 5 minutes
+            response.headers["Cache-Control"] = "public, max-age=300"
 
         return response
 
@@ -102,14 +99,9 @@ app.add_middleware(SecurityHeadersMiddleware)
 app.add_middleware(CacheControlMiddleware)
 app.add_middleware(NavigationMiddleware)
 
-# Mount static files with absolute path
-from pathlib import Path
-
 static_dir = Path(__file__).parent / "static"
 app.mount("/static", StaticFiles(directory=static_dir), name="static")
 
-
-# Import and register routes
 from .routes.about import register_about_routes
 from .routes.home import register_home_routes
 from .routes.posts import register_post_routes
@@ -121,20 +113,27 @@ register_post_routes(app)
 register_tag_routes(app)
 
 
-# Health check endpoint
 @app.get("/health")
 def health_check():
-    """Health check endpoint for Docker and monitoring."""
+    """Health check endpoint for Docker and monitoring.
+
+    Returns:
+        Dictionary containing service health status and name
+    """
     return {"status": "healthy", "service": "personal-website"}
-
-
-# Custom 404 handler
-from starlette.responses import HTMLResponse
 
 
 @app.exception_handler(404)
 def not_found(request, exc):
-    """Custom 404 page with styled layout."""
+    """Custom 404 page with styled layout.
+
+    Args:
+        request: HTTP request object with navigation context
+        exc: The 404 exception that was raised
+
+    Returns:
+        HTML response containing styled 404 page
+    """
     from .components import Layout
 
     page_content = (

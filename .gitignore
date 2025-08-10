@@ -63,3 +63,28 @@ Thumbs.db
 
 # Security - never commit session keys
 .sesskey
+
+# Testing
+htmlcov/
+.tox/
+.nox/
+coverage.xml
+*.cover
+*.py,cover
+
+# Type checking
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Environments
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Temporary files
+tmp/
+temp/
+.tmp/
+.temp/

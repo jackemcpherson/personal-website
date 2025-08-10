@@ -1,0 +1,1 @@
+"""Main FastHTML application package."""

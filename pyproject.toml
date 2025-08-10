@@ -32,13 +32,11 @@ target-version = "py312"
 
 [tool.ruff.lint]
 select = ["E", "F", "I"]
-# Ignore star import warnings for FastHTML projects
 ignore = [
-    "F403",  # Star imports are used; unable to detect undefined names
-    "F405",  # Name may be undefined, or defined from star imports
+    "F403",
+    "F405",
 ]
 
-# Allow module-level imports not at top of file for route registration
 [tool.ruff.lint.per-file-ignores]
 "src/main_app/app.py" = ["E402"]
 

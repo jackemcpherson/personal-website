@@ -1,39 +1,49 @@
-# Personal Blog & Portfolio
+# Personal Website & Blog
 
-A modern, minimalist personal blog built with [FastHTML](https://www.fastht.ml/), featuring a clean design inspired by mid-century corporate aesthetics.
+[![CI Status](https://github.com/jackmcpherson/personal-website/actions/workflows/ci.yml/badge.svg)](https://github.com/jackmcpherson/personal-website/actions)
+[![Python 3.12+](https://img.shields.io/badge/python-3.12+-blue.svg)](https://www.python.org/downloads/)
+[![FastHTML](https://img.shields.io/badge/FastHTML-modern-green.svg)](https://fastht.ml/)
+[![Docker](https://img.shields.io/badge/docker-ready-blue.svg)](https://www.docker.com/)
 
-## Features
+A production-ready personal blog and portfolio built with **FastHTML**, featuring a minimalist design inspired by 1960s IBM corporate aesthetics. Designed for developers who value clean code, fast performance, and professional presentation.
 
-- **Clean, Professional Design**: Minimalist layout with responsive design
-- **Markdown-Based Content**: Write blog posts in Markdown with YAML frontmatter
-- **Dynamic Navigation**: Sidebar with recent posts on every page  
-- **Tag System**: Organize and filter posts by tags
-- **Syntax Highlighting**: Code blocks with Pygments syntax highlighting
-- **Fast Performance**: Built on FastHTML for speed and efficiency
-- **Docker Ready**: Containerized for easy deployment
+## ✨ Features
 
-## Quick Start
+- **🎨 Professional Design**: Minimalist IBM Heritage-inspired theme with responsive layout
+- **📝 Markdown Content**: Write posts in Markdown with YAML frontmatter support
+- **🚀 High Performance**: Built on FastHTML with optimized caching and compression
+- **🏷️ Smart Tagging**: Organize and filter content by tags with automatic normalization
+- **🔍 SEO Optimized**: Automatic sitemap, RSS feed, and robots.txt generation
+- **🎯 Syntax Highlighting**: Beautiful code blocks powered by Pygments
+- **🐳 Docker Ready**: Production-ready containerization with cloud deployment support
+- **🔒 Security First**: Content Security Policy, security headers, and best practices
+- **📱 Mobile Friendly**: Responsive design that works on all devices
+- **⚡ Fast Loading**: Optimized assets with intelligent caching strategies
+
+## 🚀 Quick Start
 
 ### Prerequisites
 
-- Python 3.12+
-- [uv](https://docs.astral.sh/uv/) (recommended) or pip
+- **Python 3.12+** (required)
+- **[uv](https://docs.astral.sh/uv/)** (recommended package manager)
+- **Docker** (optional, for containerized deployment)
 
-### Development Setup
+### Local Development
 
-1. **Clone and setup**:
-   ```bash
-   cd personal-website
-   uv sync
-   ```
+```bash
+# Clone the repository
+git clone https://github.com/your-username/personal-website.git
+cd personal-website
 
-2. **Run development server**:
-   ```bash
-   uv run uvicorn src.main_app.app:app --reload
-   ```
+# Install dependencies
+uv sync
 
-3. **Visit your site**:
-   Open http://localhost:8000
+# Start development server with hot reload
+uv run uvicorn src.main_app.app:app --reload
+
+# Visit your site
+open http://localhost:8000
+```
 
 ### Running Tests
 
@@ -147,10 +157,11 @@ services:
 
 ### Styling
 
-Edit `src/main_app/static/css/custom.css` to customize:
-- Color scheme (currently orange accent: `#FF5733`)
-- Typography (Montserrat + Lora fonts)
-- Layout and spacing
+Edit `src/main_app/static/css/custom.css` to customize the IBM Heritage design system:
+- **Color Scheme**: IBM Heritage Blue (`#006699`) with neutral grays
+- **Typography**: IBM Plex Sans, Serif, and Mono fonts
+- **Layout**: 8px baseline grid system with semantic spacing tokens
+- **Responsive Breakpoints**: Mobile ≤480px, Tablet 481-960px, Desktop 961-1440px
 
 ### Content
 
