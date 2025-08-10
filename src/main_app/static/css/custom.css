@@ -1,340 +1,665 @@
 /*
 ================================================
-Personal Website Custom Stylesheet - CR-001
-Target Aesthetic: 1960s Corporate/Print Design
+Personal Website - Corporate Modern Theme
+Design System: Minimalist 1960s IBM-inspired
 ================================================
 */
 
-/* 1. Design System: Variables for Color and Typography */
+/* CSS Custom Properties - Design Tokens */
 :root {
-    --background-color: #F5F5F5;
-    --text-color: #111111;
-    --accent-color: #00A0B0; /* Vintage Cyan */
-    --link-hover-color: #D35400; /* Burnt Orange */
-    --sidebar-bg-color: #111111;
-    --sidebar-text-color: #F5F5F5;
-    --meta-text-color: #666;
-
-    --font-heading: 'Oswald', sans-serif;
-    --font-body: 'Garamond', serif;
-    --font-mono: 'Roboto Mono', monospace;
+    /* Color System - Neutral Scale */
+    --color-bg-light: #FFFFFF;
+    --color-bg-subtle: #F8F8F8;
+    --color-bg-muted: #F1F1F1;
+    --color-bg-emphasis: #E0E0E0;
+    --color-text-primary: #111111;
+    --color-text-secondary: #555555;
+    --color-border: #D0D0D0;
+    
+    /* Accent Colors - Corporate Blue Options */
+    --color-accent: #006699; /* IBM Heritage Blue */
+    --color-accent-hover: #004466;
+    --color-accent-light: #E6F2F8;
+    
+    /* Typography Scale */
+    --font-family-sans: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    --font-family-serif: 'IBM Plex Serif', Georgia, 'Times New Roman', serif;
+    --font-family-mono: 'IBM Plex Mono', 'SF Mono', Monaco, monospace;
+    
+    /* Font Weights */
+    --font-weight-regular: 400;
+    --font-weight-medium: 500;
+    --font-weight-semibold: 600;
+    --font-weight-bold: 700;
+    
+    /* Font Sizes - Modular Scale */
+    --font-size-xs: 0.75rem;    /* 12px */
+    --font-size-sm: 0.875rem;   /* 14px */
+    --font-size-base: 1rem;     /* 16px */
+    --font-size-lg: 1.125rem;   /* 18px */
+    --font-size-xl: 1.25rem;    /* 20px */
+    --font-size-2xl: 1.5rem;    /* 24px */
+    --font-size-3xl: 1.875rem;  /* 30px */
+    --font-size-4xl: 2.25rem;   /* 36px */
+    --font-size-5xl: 3rem;      /* 48px */
+    --font-size-6xl: 3.75rem;   /* 60px */
+    
+    /* Line Heights */
+    --line-height-tight: 1.25;
+    --line-height-normal: 1.5;
+    --line-height-relaxed: 1.6;
+    
+    /* Spacing Scale - 8px Baseline Grid */
+    --space-1: 0.25rem;  /* 4px */
+    --space-2: 0.5rem;   /* 8px */
+    --space-3: 0.75rem;  /* 12px */
+    --space-4: 1rem;     /* 16px */
+    --space-6: 1.5rem;   /* 24px */
+    --space-8: 2rem;     /* 32px */
+    --space-12: 3rem;    /* 48px */
+    --space-16: 4rem;    /* 64px */
+    --space-24: 6rem;    /* 96px */
+    
+    /* Border Radius */
+    --radius-0: 0;
+    --radius-1: 0.25rem; /* 4px */
+    --radius-2: 0.5rem;  /* 8px */
+    
+    /* Motion */
+    --motion-duration-fast: 120ms;
+    --motion-duration-base: 200ms;
+    --motion-ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+    
+    /* Z-Index Layers */
+    --z-base: 0;
+    --z-sticky: 10;
+    --z-overlay: 100;
+    --z-modal: 1000;
+    
+    /* Breakpoints (for use in media queries) */
+    --breakpoint-mobile: 480px;
+    --breakpoint-tablet: 960px;
+    --breakpoint-desktop: 1440px;
+    
+    /* Grid System */
+    --grid-columns-mobile: 4;
+    --grid-columns-tablet: 8;
+    --grid-columns-desktop: 12;
+    --grid-gutter: var(--space-6);
+    --content-max-width: 65ch;
 }
 
-/* 2. Global Typography & Body Styles */
+/* Reset and Base Styles */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+    line-height: var(--line-height-relaxed);
+}
+
 body {
-    font-family: var(--font-body);
-    background-color: var(--background-color);
-    color: var(--text-color);
-    line-height: 1.7;
-    font-size: 110%; /* Increase base font size for readability */
+    font-family: var(--font-family-serif);
+    font-weight: var(--font-weight-regular);
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-light);
+    margin: 0;
+    padding: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 }
 
+/* Typography System */
 h1, h2, h3, h4, h5, h6 {
-    font-family: var(--font-heading);
+    font-family: var(--font-family-sans);
+    font-weight: var(--font-weight-bold);
+    line-height: var(--line-height-tight);
+    color: var(--color-text-primary);
+    margin: 0 0 var(--space-4) 0;
+    letter-spacing: -0.02em;
+}
+
+h1 { font-size: var(--font-size-5xl); margin-bottom: var(--space-6); }
+h2 { font-size: var(--font-size-3xl); margin-bottom: var(--space-4); }
+h3 { font-size: var(--font-size-2xl); margin-bottom: var(--space-4); }
+h4 { font-size: var(--font-size-xl); margin-bottom: var(--space-3); }
+h5 { font-size: var(--font-size-lg); margin-bottom: var(--space-3); }
+h6 { font-size: var(--font-size-base); margin-bottom: var(--space-3); }
+
+p {
+    margin: 0 0 var(--space-4) 0;
+    max-width: var(--content-max-width);
+}
+
+/* Links */
+a {
+    color: var(--color-accent);
+    text-decoration: none;
+    transition: color var(--motion-duration-fast) var(--motion-ease-standard);
+    border-bottom: 1px solid transparent;
+}
+
+a:hover,
+a:focus {
+    color: var(--color-accent-hover);
+    border-bottom-color: currentColor;
+    outline: none;
+}
+
+a:focus {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+}
+
+/* Layout Grid */
+.grid-container {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    min-height: 100vh;
+    background-color: var(--color-bg-light);
+}
+
+/* Navigation Sidebar */
+.sidebar {
+    background-color: var(--color-text-primary);
+    color: var(--color-bg-light);
+    padding: var(--space-8);
+    overflow-y: auto;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+}
+
+.sidebar-header {
+    margin-bottom: var(--space-8);
+}
+
+.sidebar-header h2 {
+    margin: 0;
+    font-size: var(--font-size-2xl);
+    font-weight: var(--font-weight-bold);
+}
+
+.sidebar-header h2 a {
+    color: var(--color-bg-light);
+    border-bottom: none;
+}
+
+.sidebar-header h2 a:hover {
+    color: var(--color-accent-light);
+}
+
+/* This section was moved to the bottom - navigation styles consolidated */
+
+/* Recent Posts Section */
+.recent-posts {
+    margin-top: var(--space-8);
+}
+
+.recent-posts h3 {
+    color: var(--color-accent-light);
+    font-size: var(--font-size-base);
+    font-weight: var(--font-weight-semibold);
     text-transform: uppercase;
     letter-spacing: 0.05em;
-    font-weight: 700;
-    margin-bottom: 1rem;
+    border-bottom: 1px solid var(--color-text-secondary);
+    padding-bottom: var(--space-2);
+    margin-bottom: var(--space-4);
 }
 
-a {
-    color: var(--accent-color);
-    text-decoration: none;
-    transition: color 0.2s ease-in-out;
-}
-
-a:hover {
-    color: var(--link-hover-color);
-}
-
-/* 3. Layout: Graphic Blocks with No Borders */
-.container-fluid {
-    padding: 0;
-    margin: 0;
-    max-width: none;
-    width: 100%;
-}
-
-.grid {
-    display: grid;
-    grid-template-columns: 300px 1fr;
-    min-height: 100vh;
-    gap: 0;
-}
-
-/* 4. Sidebar: High-Contrast Block */
-.sidebar {
-    background-color: var(--sidebar-bg-color);
-    color: var(--sidebar-text-color);
-    padding: 2.5rem;
-    overflow-y: auto;
-    display: block;
-    width: 300px;
-    min-height: 100vh;
-}
-
-.sidebar header {
-    margin-bottom: 2rem;
-    width: 100%;
-}
-
-.sidebar header h2 {
-    margin: 0;
-    margin-bottom: 0;
-    width: 100%;
-}
-
-.sidebar header h2 a {
-    color: var(--accent-color);
-    font-size: 1.8rem;
-    display: block;
-    width: 100%;
-}
-
-.sidebar header h2 a:hover {
-    color: var(--link-hover-color);
-}
-
-.sidebar .nav-links {
+.recent-posts ul {
     list-style: none;
-    padding: 0;
     margin: 0;
-    margin-bottom: 3rem;
-    width: 100%;
-}
-
-.sidebar .nav-links li {
-    margin-bottom: 0.75rem;
-    width: 100%;
-}
-
-.sidebar .nav-links a {
-    color: var(--sidebar-text-color);
-    font-family: var(--font-heading);
-    font-weight: 700;
-    font-size: 1.2rem;
-    display: block;
     padding: 0;
-    width: 100%;
-    text-decoration: none;
 }
 
-.sidebar .nav-links a:hover {
-    color: var(--accent-color);
+.recent-posts li {
+    margin-bottom: var(--space-6);
 }
 
-.sidebar .recent-posts {
-    width: 100%;
-    margin-top: 0;
-}
-
-.sidebar .recent-posts h3 {
-    color: var(--accent-color);
-    border-bottom: 1px solid #444;
-    padding-bottom: 0.5rem;
-    margin-bottom: 1.5rem;
-    margin-top: 0;
-    width: 100%;
-}
-
-.sidebar .recent-posts ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    width: 100%;
-}
-
-.sidebar .recent-posts li {
-    margin-bottom: 1.5rem;
-    width: 100%;
-}
-
-.sidebar .recent-posts a {
-    color: var(--sidebar-text-color);
-    font-weight: 400;
-    font-family: var(--font-body);
+.recent-posts a {
     display: block;
-    text-decoration: none;
-    line-height: 1.4;
+    color: var(--color-bg-light);
+    font-family: var(--font-family-serif);
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-normal);
+    border-bottom: none;
 }
 
-.sidebar .recent-posts a:hover {
-    color: var(--accent-color);
+.recent-posts a:hover {
+    color: var(--color-accent-light);
 }
 
-.sidebar .recent-posts small {
+.recent-posts .post-date {
     display: block;
-    font-family: var(--font-mono);
-    color: #999;
-    font-size: 0.8rem;
-    margin-top: 0.5rem;
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-xs);
+    color: var(--color-text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: var(--space-1);
 }
 
-
-/* 5. Main Content Area */
+/* Main Content Area */
 .content {
-    padding: 2.5rem 4rem;
-    min-width: 0;
-    overflow: hidden;
+    padding: var(--space-12) var(--space-16);
+    max-width: 100%;
+    overflow-x: hidden;
 }
 
-.post-header {
-    border-bottom: 3px solid var(--text-color);
-    margin-bottom: 2rem;
-    padding-bottom: 1.5rem;
+.content-header {
+    border-bottom: 1px solid var(--color-border);
+    margin-bottom: var(--space-8);
+    padding-bottom: var(--space-6);
 }
 
-.post-title {
-    font-size: 3.5rem;
-    line-height: 1.1;
-    margin-bottom: 1rem;
+.content-title {
+    font-size: var(--font-size-6xl);
+    line-height: var(--line-height-tight);
+    margin-bottom: var(--space-4);
+    letter-spacing: -0.03em;
 }
 
-.post-meta, .blog-post-meta, .tag-meta {
-    font-family: var(--font-mono);
-    font-size: 0.8rem;
-    color: var(--meta-text-color);
+/* Meta Information */
+.post-meta,
+.blog-post-meta {
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-xs);
+    color: var(--color-text-secondary);
     text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-4);
 }
 
-/* 6. Tag & Label Styling */
-.tag {
-    font-family: var(--font-mono);
-    font-size: 0.75rem;
-    background-color: transparent;
-    border: 1px solid var(--accent-color);
-    color: var(--accent-color);
-    padding: 0.25rem 0.75rem;
-    margin-right: 0.5rem;
-    text-transform: uppercase;
-    display: inline-block;
-    border-radius: 0; /* Sharp corners for print feel */
-    font-weight: 500;
-    transition: background-color 0.2s ease-in-out, color 0.2s ease-in-out;
-}
-
-.tag:hover {
-    background-color: var(--accent-color);
-    color: white;
-}
-
-/* 7. Blog Index Specifics */
+/* Blog Post Styling */
 .blog-post {
-    margin-bottom: 3rem;
-    padding-bottom: 3rem;
-    border-bottom: 1px solid #ddd;
+    margin-bottom: var(--space-16);
+    padding-bottom: var(--space-12);
+    border-bottom: 1px solid var(--color-bg-muted);
 }
+
 .blog-post:last-child {
     border-bottom: none;
 }
+
+.blog-post h2 {
+    margin-bottom: var(--space-3);
+}
+
 .blog-post h2 a {
-    color: var(--text-color);
+    color: var(--color-text-primary);
+    border-bottom: none;
 }
+
 .blog-post h2 a:hover {
-    color: var(--accent-color);
+    color: var(--color-accent);
 }
+
 .blog-post-excerpt {
-    font-size: 1.1rem;
-    margin: 1rem 0;
+    font-size: var(--font-size-lg);
+    line-height: var(--line-height-relaxed);
+    color: var(--color-text-secondary);
+    margin: var(--space-4) 0 var(--space-6) 0;
+    max-width: var(--content-max-width);
 }
 
-
-/* 8. Code Block Styling */
-pre, .highlight {
-    border: 1px solid #ddd;
-    background-color: #fff;
-    padding: 1.5rem;
-    overflow-x: auto;
-    font-size: 0.9rem;
-    border-radius: 0;
+/* Tags */
+.tag {
+    display: inline-block;
+    font-family: var(--font-family-mono);
+    font-size: var(--font-size-xs);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-accent);
+    background-color: transparent;
+    border: 1px solid var(--color-accent);
+    padding: var(--space-1) var(--space-2);
+    margin-right: var(--space-2);
+    margin-bottom: var(--space-2);
+    border-radius: var(--radius-1);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    text-decoration: none;
+    transition: all var(--motion-duration-fast) var(--motion-ease-standard);
 }
+
+.tag:hover,
+.tag:focus {
+    background-color: var(--color-accent);
+    color: var(--color-bg-light);
+    border-bottom: 1px solid var(--color-accent);
+}
+
+/* Code Blocks */
+pre,
 code {
-    font-family: var(--font-mono);
-    background-color: #eee;
-    padding: 0.2em 0.4em;
-    font-size: 85%;
+    font-family: var(--font-family-mono);
 }
+
+pre {
+    background-color: var(--color-bg-subtle);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-1);
+    padding: var(--space-4);
+    overflow-x: auto;
+    font-size: var(--font-size-sm);
+    line-height: var(--line-height-normal);
+    margin: var(--space-4) 0;
+}
+
+code {
+    background-color: var(--color-bg-emphasis);
+    padding: var(--space-1) var(--space-2);
+    border-radius: var(--radius-0);
+    font-size: 0.9em;
+}
+
 pre code {
     background: none;
     padding: 0;
-    font-size: 100%;
+    font-size: inherit;
+    border-radius: 0;
 }
 
-
-/* 9. Responsive Design */
-@media screen and (max-width: 768px) {
-    body { font-size: 100%; }
-    .grid { grid-template-columns: 1fr; }
-    .sidebar { border-right: none; border-bottom: 2px solid #111; }
-    .content { padding: 1.5rem; }
-    .post-title { font-size: 2.2rem; }
+/* Buttons */
+.btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-family-sans);
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-base);
+    line-height: 1;
+    border: 1px solid transparent;
+    border-radius: var(--radius-1);
+    padding: var(--space-3) var(--space-4);
+    text-decoration: none;
+    cursor: pointer;
+    transition: all var(--motion-duration-base) var(--motion-ease-standard);
+    min-height: 40px;
 }
 
-/* 10. Pico.css Overrides - Remove default nav styling */
-nav.sidebar, .sidebar {
-    background-color: var(--sidebar-bg-color) !important;
-    padding: 2.5rem !important;
-    display: block !important;
-    width: 300px !important;
-    min-height: 100vh !important;
-    position: relative !important;
+.btn-primary {
+    background-color: var(--color-accent);
+    color: var(--color-bg-light);
+    border-color: var(--color-accent);
 }
 
-nav.sidebar ul, .sidebar ul {
-    flex-direction: column !important;
-    display: block !important;
-    width: 100% !important;
-    padding: 0 !important;
-    margin: 0 !important;
-    padding-left: 0 !important;
-    margin-left: 0 !important;
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: var(--color-accent-hover);
+    border-color: var(--color-accent-hover);
+    color: var(--color-bg-light);
 }
 
-nav.sidebar header, .sidebar header {
-    width: 100% !important;
-    margin-bottom: 2rem !important;
-    display: block !important;
+.btn-secondary {
+    background-color: transparent;
+    color: var(--color-accent);
+    border-color: var(--color-accent);
 }
 
-nav.sidebar li, .sidebar li {
-    width: 100% !important;
-    display: block !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    padding-left: 0 !important;
-    margin-left: 0 !important;
+.btn-secondary:hover,
+.btn-secondary:focus {
+    background-color: var(--color-accent-light);
+    color: var(--color-accent-hover);
 }
 
-nav.sidebar a, .sidebar a {
-    padding-left: 0 !important;
-    margin-left: 0 !important;
+/* Forms */
+.form-group {
+    margin-bottom: var(--space-4);
 }
 
-/* Force proper display for all nav elements */
-nav {
-    display: block !important;
+.form-label {
+    display: block;
+    font-family: var(--font-family-sans);
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-sm);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-2);
 }
 
-/* Override any Pico.css grid or flexbox on nav */
-nav ul {
-    display: block !important;
-    flex-direction: column !important;
+.form-input {
+    width: 100%;
+    font-family: inherit;
+    font-size: var(--font-size-base);
+    line-height: var(--line-height-normal);
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-light);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-1);
+    padding: var(--space-3);
+    transition: border-color var(--motion-duration-fast) var(--motion-ease-standard);
 }
 
-/*
-================================================
-Fixes for CR-FIX-001
-================================================
-*/
+.form-input:focus {
+    outline: 2px solid var(--color-accent);
+    outline-offset: -2px;
+    border-color: var(--color-accent);
+}
 
-/* Fix for invisible text in main content */
+/* Tables */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: var(--space-4) 0;
+    font-family: var(--font-family-sans);
+}
+
+th,
+td {
+    padding: var(--space-3) var(--space-4);
+    text-align: left;
+    border-bottom: 1px solid var(--color-border);
+}
+
+th {
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    background-color: var(--color-bg-subtle);
+}
+
+tr:hover {
+    background-color: var(--color-bg-subtle);
+}
+
+/* Responsive Design */
+
+/* Mobile (≤480px) */
+@media (max-width: 480px) {
+    :root {
+        --space-8: 1.5rem;   /* 24px */
+        --space-12: 2rem;    /* 32px */
+        --space-16: 2.5rem;  /* 40px */
+    }
+    
+    .grid-container {
+        grid-template-columns: 1fr;
+    }
+    
+    .sidebar {
+        position: static;
+        height: auto;
+        padding: var(--space-6);
+    }
+    
+    .sidebar-header h2 {
+        font-size: var(--font-size-xl);
+    }
+    
+    .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: var(--space-4);
+        margin-bottom: var(--space-6);
+    }
+    
+    .nav-links li {
+        margin-bottom: 0;
+    }
+    
+    .recent-posts {
+        margin-top: var(--space-6);
+    }
+    
+    .content {
+        padding: var(--space-6) var(--space-4);
+    }
+    
+    .content-title {
+        font-size: var(--font-size-4xl);
+    }
+    
+    h1 { font-size: var(--font-size-4xl); }
+    h2 { font-size: var(--font-size-2xl); }
+    h3 { font-size: var(--font-size-xl); }
+}
+
+/* Tablet (481px-960px) */
+@media (min-width: 481px) and (max-width: 960px) {
+    .grid-container {
+        grid-template-columns: 240px 1fr;
+    }
+    
+    .sidebar {
+        padding: var(--space-6);
+    }
+    
+    .content {
+        padding: var(--space-8) var(--space-12);
+    }
+    
+    .content-title {
+        font-size: var(--font-size-5xl);
+    }
+}
+
+/* Wide screens (>1440px) */
+@media (min-width: 1441px) {
+    .grid-container {
+        grid-template-columns: 320px 1fr;
+        max-width: 1600px;
+        margin: 0 auto;
+    }
+    
+    .content {
+        padding: var(--space-16) var(--space-24);
+    }
+}
+
+/* Accessibility & Motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}
+
+/* High Contrast Mode */
+@media (prefers-contrast: high) {
+    :root {
+        --color-border: #000000;
+        --color-text-secondary: #000000;
+    }
+}
+
+/* Focus Styles for Keyboard Navigation */
+:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+}
+
+/* Base HTML element styles */
+main {
+    padding: 0;
+}
+
+/* Lists */
+ul, ol {
+    margin: var(--space-4) 0;
+    padding-left: var(--space-6);
+}
+
+li {
+    margin-bottom: var(--space-2);
+    line-height: var(--line-height-normal);
+}
+
+/* Blockquotes */
+blockquote {
+    margin: var(--space-6) 0;
+    padding: var(--space-4) 0 var(--space-4) var(--space-6);
+    border-left: 3px solid var(--color-accent);
+    font-style: italic;
+    color: var(--color-text-secondary);
+    background-color: var(--color-bg-subtle);
+}
+
+blockquote p {
+    margin: 0;
+}
+
+/* Images */
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Horizontal rules */
+hr {
+    border: none;
+    height: 1px;
+    background-color: var(--color-border);
+    margin: var(--space-8) 0;
+}
+
+/* Navigation styles - simplified without !important */
+.nav-links {
+    list-style: none;
+    margin: 0 0 var(--space-12) 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-links li {
+    margin-bottom: var(--space-4);
+    display: block;
+    width: 100%;
+}
+
+.nav-links a {
+    display: block;
+    color: var(--color-bg-light);
+    font-family: var(--font-family-sans);
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-lg);
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid transparent;
+    transition: all var(--motion-duration-fast) var(--motion-ease-standard);
+    text-decoration: none;
+}
+
+.nav-links a:hover,
+.nav-links a:focus {
+    color: var(--color-accent-light);
+    border-bottom-color: var(--color-accent-light);
+}
+
+/* Ensure proper text color inheritance */
 .content h1,
 .content h2,
-.content p {
-    color: var(--text-color);
-}
-
-/* Ensure blog post excerpts are also the correct color */
-.blog-post-excerpt {
-    color: var(--text-color);
+.content h3,
+.content h4,
+.content h5,
+.content h6,
+.content p,
+.content li {
+    color: var(--color-text-primary);
 }
