@@ -67,7 +67,7 @@ class CacheControlMiddleware(BaseHTTPMiddleware):
         if request.url.path.startswith("/static/"):
             response.headers["Cache-Control"] = "public, max-age=31536000"  # 1 year
         # No cache for health endpoint
-        elif request.url.path == "/healthz":
+        elif request.url.path == "/health":
             response.headers["Cache-Control"] = "no-store"
         # Short cache for HTML pages
         else:
@@ -122,7 +122,7 @@ register_tag_routes(app)
 
 
 # Health check endpoint
-@app.get("/healthz")
+@app.get("/health")
 def health_check():
     """Health check endpoint for Docker and monitoring."""
     return {"status": "healthy", "service": "personal-website"}

@@ -60,7 +60,7 @@ class TestRoutes:
 
     def test_health_endpoint(self):
         """Test that health endpoint returns proper response."""
-        response = self.client.get("/healthz")
+        response = self.client.get("/health")
         assert response.status_code == 200
         json_response = response.json()
         assert json_response["status"] == "healthy"

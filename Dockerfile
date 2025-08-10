@@ -5,6 +5,7 @@ FROM python:3.12-slim
 ENV PYTHONUNBUFFERED=1
 ENV PYTHONPATH=/app/src
 ENV FASTHTML_ENV=production
+ENV PORT=8000
 
 # Set working directory
 WORKDIR /app
@@ -35,11 +36,7 @@ RUN useradd --create-home --shell /bin/bash app \
 USER app
 
 # Expose port
-EXPOSE 8000
-
-# Health check
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:8000/healthz || exit 1
+EXPOSE $PORT
 
 # Run application with uvicorn using the virtual environment
-CMD [".venv/bin/uvicorn", "src.main_app.app:app", "--host", "0.0.0.0", "--port", "8000", "--timeout-keep-alive", "30"]
+CMD .venv/bin/uvicorn src.main_app.app:app --host 0.0.0.0 --port $PORT --timeout-keep-alive 30
