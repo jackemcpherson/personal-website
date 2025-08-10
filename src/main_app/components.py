@@ -46,8 +46,16 @@ def Layout(request, *content, title: str):
                         // Update toggle button text
                         function updateToggleText(theme) {
                             if (toggle) {
-                                toggle.textContent = theme === 'dark' ? '☀️' : '🌙';
                                 const newMode = theme === 'dark' ? 'light' : 'dark';
+                                const sunIcon = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" ' +
+                                    'stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="5"/>' +
+                                    '<path d="m12 1-2.5 2.5L12 6l2.5-2.5L12 1zM21 12l-2.5-2.5L16 12l2.5 2.5L21 ' +
+                                    '12zM12 21l-2.5-2.5L12 18l2.5 2.5L12 21zM3 12l2.5-2.5L8 12l-2.5 2.5L3 12z"/></svg>';
+                                const moonIcon = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" ' +
+                                    'stroke="currentColor" stroke-width="1.5"><path d="M21 12.79A9 9 0 1 1 11.21 ' +
+                                    '3 7 7 0 0 0 21 12.79z"/></svg>';
+                                const iconSvg = theme === 'dark' ? sunIcon : moonIcon;
+                                toggle.innerHTML = iconSvg;
                                 toggle.setAttribute('aria-label', `Switch to ${newMode} mode`);
                                 toggle.setAttribute('title', `Switch to ${newMode} mode`);
                             }
@@ -117,6 +125,16 @@ def Layout(request, *content, title: str):
                 cls="grid-container",
             ),
             # Subtle dark mode toggle button - fixed bottom left
-            Button("🌙", id="theme-toggle", cls="theme-toggle", type="button", title="Toggle dark mode"),
+            Button(
+                NotStr(
+                    '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" '
+                    + 'stroke="currentColor" stroke-width="1.5">'
+                    + '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>'
+                ),
+                id="theme-toggle",
+                cls="theme-toggle",
+                type="button",
+                title="Toggle dark mode",
+            ),
         ),
     )

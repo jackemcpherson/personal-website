@@ -72,9 +72,45 @@ Rules scale type, spacing, and columns. Content never exceeds comfortable line l
 - Vertical rhythm is king; align to baseline multiples.
 
 ## Iconography & Graphics
-- Flat, monoline icons with unified stroke weight.
-- Geometric shapes only. No skeuomorphism.
-- Duotone or black-and-white imagery. Consistent treatment.
+
+### Style
+- **Form:** Flat, monoline, geometric. No skeuomorphism, gradients, or drop shadows.
+- **Line weight:** Consistent across all icons (recommended: 1.5–2px at 24px base size).
+- **Corners:** Rounded to match type and border radius system.
+- **Proportions:** All icons should align to a common pixel grid and visual balance.
+
+### Color & Contrast
+- **Light mode:** Icons use near-black (`#111111`) or secondary text grey (`#555555`). Accent blue (`#006699`) only for interactive icons (hover, active, selected).
+- **Dark mode:** Icons use white (`#FFFFFF`) or light grey (`#B0B0B0`). Accent blue remains unchanged for interactive states.
+- **Contrast:** Icons must meet WCAG AA when used as the sole indicator.
+
+### Usage Rules
+- Icons support text, never replace it entirely for core navigation.
+- Interactive icons must have visible hover, focus, and active states.
+- Avoid decorative-only icons. Every icon must serve a functional purpose.
+
+### Consistency with Theme
+- Design vocabulary should match the 1960s modernist corporate aesthetic:
+  - Simplified shapes (no unnecessary detail).
+  - Clear, rational geometry (IBM design system influence).
+  - Even negative space within and around shapes.
+- Penguin Classics influence: icons should have clarity and proportion akin to typographic symbols in print, avoiding over-complex or playful forms.
+
+### Sizing
+- Standard sizes: 16px, 20px, 24px, 32px.
+- Maintain clear optical alignment with text and surrounding UI elements.
+- Touch targets for mobile ≥ 40×40px regardless of icon size.
+
+### Source & Format
+- Preferred source: single, unified icon set or custom set to maintain stylistic unity.
+- Format: SVG for scalability, with stroke/fill controlled via CSS variables.
+- All icons should be optimized for minimal file size and crisp rendering on high-DPI screens.
+
+### Motion
+- If icons animate (e.g., loading indicators, toggles), motion must be:
+  - Functional and minimal.
+  - 120–200ms duration.
+  - Consistent easing curves across UI.
 
 ## Motion
 - Functional, subtle: fade, slide, scale.

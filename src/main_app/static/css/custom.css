@@ -459,40 +459,43 @@ pre code {
     color: var(--color-accent-hover);
 }
 
-/* Very Subtle Theme Toggle Button - Fixed Bottom Left */
+/* Ultra-Subtle Theme Toggle - Like Menu Item */
 .theme-toggle {
     position: fixed;
     bottom: var(--space-4);
     left: var(--space-4);
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
+    width: auto;
+    height: auto;
     border: none;
-    background-color: transparent;
+    background: none;
     color: var(--color-text-secondary);
-    font-size: 1rem;
+    cursor: pointer;
+    transition: color var(--motion-duration-fast) var(--motion-ease-standard);
+    z-index: var(--z-base);
+    padding: var(--space-2);
+    opacity: 0.6;
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
-    transition: all var(--motion-duration-fast) var(--motion-ease-standard);
-    z-index: var(--z-base);
-    font-family: system-ui, sans-serif;
-    padding: 0;
-    line-height: 1;
-    opacity: 0.4;
 }
 
 .theme-toggle:hover,
 .theme-toggle:focus {
-    opacity: 0.8;
     color: var(--color-text-primary);
+    opacity: 1;
     outline: none;
 }
 
 .theme-toggle:focus-visible {
-    outline: 1px solid var(--color-accent);
+    outline: 1px solid var(--color-text-secondary);
     outline-offset: 2px;
+    border-radius: 2px;
+}
+
+.theme-toggle svg {
+    width: 16px;
+    height: 16px;
+    stroke: currentColor;
 }
 
 /* Dark Mode Toggle Adjustments */
@@ -500,22 +503,25 @@ pre code {
 @media (prefers-color-scheme: dark) {
     .theme-toggle {
         color: var(--color-text-secondary);
-        opacity: 0.4;
+        opacity: 0.6;
     }
     
     .theme-toggle:hover,
     .theme-toggle:focus {
         color: var(--color-text-primary);
-        opacity: 0.8;
+        opacity: 1;
     }
 }
 
 /* Mobile adjustments for theme toggle */
 @media (max-width: 480px) {
     .theme-toggle {
-        width: 28px;
-        height: 28px;
-        font-size: 0.875rem;
+        padding: var(--space-1);
+    }
+    
+    .theme-toggle svg {
+        width: 14px;
+        height: 14px;
     }
 }
 
