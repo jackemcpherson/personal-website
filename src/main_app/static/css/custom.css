@@ -192,44 +192,7 @@ a:focus {
     color: var(--color-accent-light);
 }
 
-/* Navigation Links */
-.nav-links {
-    list-style: none !important;
-    margin: 0 0 var(--space-12) 0 !important;
-    padding: 0 !important;
-    display: flex !important;
-    flex-direction: column !important;
-    gap: 0 !important;
-}
-
-.nav-links li {
-    margin-bottom: var(--space-4) !important;
-    margin-right: 0 !important;
-    margin-left: 0 !important;
-    padding: 0 !important;
-    display: block !important;
-    width: 100% !important;
-}
-
-.nav-links a {
-    display: block !important;
-    color: var(--color-bg-light) !important;
-    font-family: var(--font-family-sans) !important;
-    font-weight: var(--font-weight-medium) !important;
-    font-size: var(--font-size-lg) !important;
-    padding: var(--space-2) 0 !important;
-    border-bottom: 1px solid transparent !important;
-    transition: all var(--motion-duration-fast) var(--motion-ease-standard) !important;
-    text-decoration: none !important;
-    margin: 0 !important;
-    width: 100% !important;
-}
-
-.nav-links a:hover,
-.nav-links a:focus {
-    color: var(--color-accent-light) !important;
-    border-bottom-color: var(--color-accent-light) !important;
-}
+/* This section was moved to the bottom - navigation styles consolidated */
 
 /* Recent Posts Section */
 .recent-posts {
@@ -610,51 +573,83 @@ tr:hover {
     outline-offset: 2px;
 }
 
-/* Override Pico.css defaults where needed */
+/* Base HTML element styles */
 main {
-    padding: 0 !important;
+    padding: 0;
 }
 
-/* Force proper navigation structure to override Pico.css */
-nav.sidebar ul,
-.sidebar .nav-links {
-    display: flex !important;
-    flex-direction: column !important;
-    list-style: none !important;
-    margin: 0 0 var(--space-12) 0 !important;
-    padding: 0 !important;
-    gap: 0 !important;
+/* Lists */
+ul, ol {
+    margin: var(--space-4) 0;
+    padding-left: var(--space-6);
 }
 
-nav.sidebar ul li,
-.sidebar .nav-links li {
-    display: block !important;
-    width: 100% !important;
-    margin: 0 0 var(--space-4) 0 !important;
-    padding: 0 !important;
+li {
+    margin-bottom: var(--space-2);
+    line-height: var(--line-height-normal);
 }
 
-nav.sidebar ul li a,
-.sidebar .nav-links li a {
-    display: block !important;
-    width: 100% !important;
-    margin: 0 !important;
-    padding: var(--space-2) 0 !important;
-    text-decoration: none !important;
-    color: var(--color-bg-light) !important;
-    font-family: var(--font-family-sans) !important;
-    font-weight: var(--font-weight-medium) !important;
-    font-size: var(--font-size-lg) !important;
-    border-bottom: 1px solid transparent !important;
-    transition: all var(--motion-duration-fast) var(--motion-ease-standard) !important;
+/* Blockquotes */
+blockquote {
+    margin: var(--space-6) 0;
+    padding: var(--space-4) 0 var(--space-4) var(--space-6);
+    border-left: 3px solid var(--color-accent);
+    font-style: italic;
+    color: var(--color-text-secondary);
+    background-color: var(--color-bg-subtle);
 }
 
-nav.sidebar ul li a:hover,
-nav.sidebar ul li a:focus,
-.sidebar .nav-links li a:hover,
-.sidebar .nav-links li a:focus {
-    color: var(--color-accent-light) !important;
-    border-bottom-color: var(--color-accent-light) !important;
+blockquote p {
+    margin: 0;
+}
+
+/* Images */
+img {
+    max-width: 100%;
+    height: auto;
+    border-radius: var(--radius-1);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Horizontal rules */
+hr {
+    border: none;
+    height: 1px;
+    background-color: var(--color-border);
+    margin: var(--space-8) 0;
+}
+
+/* Navigation styles - simplified without !important */
+.nav-links {
+    list-style: none;
+    margin: 0 0 var(--space-12) 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+}
+
+.nav-links li {
+    margin-bottom: var(--space-4);
+    display: block;
+    width: 100%;
+}
+
+.nav-links a {
+    display: block;
+    color: var(--color-bg-light);
+    font-family: var(--font-family-sans);
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-lg);
+    padding: var(--space-2) 0;
+    border-bottom: 1px solid transparent;
+    transition: all var(--motion-duration-fast) var(--motion-ease-standard);
+    text-decoration: none;
+}
+
+.nav-links a:hover,
+.nav-links a:focus {
+    color: var(--color-accent-light);
+    border-bottom-color: var(--color-accent-light);
 }
 
 /* Ensure proper text color inheritance */
