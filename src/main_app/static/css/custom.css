@@ -459,47 +459,83 @@ pre code {
     color: var(--color-accent-hover);
 }
 
-/* Theme Toggle Button - Special styling for sidebar */
-#theme-toggle {
-    font-family: var(--font-family-sans);
-    font-size: var(--font-size-sm);
-    font-weight: var(--font-weight-medium);
-    border-color: var(--color-text-secondary);
-    color: var(--color-bg-light);
-    background-color: transparent;
-    transition: all var(--motion-duration-base) var(--motion-ease-standard);
-}
-
-#theme-toggle:hover,
-#theme-toggle:focus {
-    background-color: var(--color-text-secondary);
+/* Subtle Theme Toggle Button - Fixed Bottom Left */
+.theme-toggle {
+    position: fixed;
+    bottom: var(--space-6);
+    left: var(--space-6);
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    border: 1px solid var(--color-border);
+    background-color: var(--color-bg-light);
     color: var(--color-text-primary);
-    border-color: var(--color-accent-light);
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all var(--motion-duration-base) var(--motion-ease-standard);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    z-index: var(--z-overlay);
+    font-family: system-ui, sans-serif;
+    padding: 0;
+    line-height: 1;
 }
 
-/* Dark Mode Button Adjustments */
+.theme-toggle:hover,
+.theme-toggle:focus {
+    background-color: var(--color-bg-subtle);
+    border-color: var(--color-accent);
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    outline: none;
+}
+
+.theme-toggle:focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 2px;
+}
+
+/* Dark Mode Toggle Adjustments */
+[data-theme="dark"] .theme-toggle,
+@media (prefers-color-scheme: dark) {
+    .theme-toggle {
+        background-color: var(--color-bg-emphasis);
+        border-color: var(--color-border);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
+        color: var(--color-text-primary);
+    }
+    
+    .theme-toggle:hover,
+    .theme-toggle:focus {
+        background-color: var(--color-bg-subtle);
+        border-color: var(--color-accent);
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    }
+}
+
+/* Mobile adjustments for theme toggle */
+@media (max-width: 480px) {
+    .theme-toggle {
+        bottom: var(--space-4);
+        left: var(--space-4);
+        width: 44px;
+        height: 44px;
+        font-size: 1.25rem;
+    }
+}
+
+/* Dark Mode Button Adjustments for other buttons */
 [data-theme="dark"] .btn-secondary,
 @media (prefers-color-scheme: dark) {
-    .btn-secondary:not(#theme-toggle) {
+    .btn-secondary {
         border-color: var(--color-border);
         color: var(--color-text-primary);
     }
     
-    .btn-secondary:not(#theme-toggle):hover,
-    .btn-secondary:not(#theme-toggle):focus {
-        background-color: var(--color-bg-emphasis);
-        color: var(--color-text-primary);
-        border-color: var(--color-accent);
-    }
-    
-    /* Theme toggle in dark mode */
-    #theme-toggle {
-        border-color: var(--color-text-secondary);
-        color: var(--color-text-primary);
-    }
-    
-    #theme-toggle:hover,
-    #theme-toggle:focus {
+    .btn-secondary:hover,
+    .btn-secondary:focus {
         background-color: var(--color-bg-emphasis);
         color: var(--color-text-primary);
         border-color: var(--color-accent);

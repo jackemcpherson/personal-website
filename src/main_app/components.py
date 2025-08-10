@@ -46,9 +46,10 @@ def Layout(request, *content, title: str):
                         // Update toggle button text
                         function updateToggleText(theme) {
                             if (toggle) {
-                                toggle.textContent = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
+                                toggle.textContent = theme === 'dark' ? '☀️' : '🌙';
                                 const newMode = theme === 'dark' ? 'light' : 'dark';
                                 toggle.setAttribute('aria-label', `Switch to ${newMode} mode`);
+                                toggle.setAttribute('title', `Switch to ${newMode} mode`);
                             }
                         }
                         
@@ -89,14 +90,6 @@ def Layout(request, *content, title: str):
                         Li(A("About", href="/about")),
                         cls="nav-links",
                     ),
-                    # Dark mode toggle button
-                    Button(
-                        "🌙 Dark",
-                        id="theme-toggle",
-                        cls="btn btn-secondary",
-                        style="margin-top: var(--space-4); width: 100%;",
-                        type="button",
-                    ),
                     # This is the corrected 'Recent Posts' section from Issue #2
                     Section(
                         H3("Recent Posts"),
@@ -122,6 +115,8 @@ def Layout(request, *content, title: str):
                 # Page-specific content is injected here
                 Main(*content, cls="content"),
                 cls="grid-container",
-            )
+            ),
+            # Subtle dark mode toggle button - fixed bottom left
+            Button("🌙", id="theme-toggle", cls="theme-toggle", type="button", title="Toggle dark mode"),
         ),
     )
