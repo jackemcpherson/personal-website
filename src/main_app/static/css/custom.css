@@ -7,7 +7,7 @@ Design System: Minimalist 1960s IBM-inspired
 
 /* CSS Custom Properties - Design Tokens */
 :root {
-    /* Color System - Neutral Scale */
+    /* Color System - Light Mode (Default) */
     --color-bg-light: #FFFFFF;
     --color-bg-subtle: #F8F8F8;
     --color-bg-muted: #F1F1F1;
@@ -18,9 +18,62 @@ Design System: Minimalist 1960s IBM-inspired
     
     /* Accent Colors - Corporate Blue Options */
     --color-accent: #006699; /* IBM Heritage Blue */
-    --color-accent-hover: #004466;
+    --color-accent-hover: #1985B5;
+    --color-accent-active: #004D73;
     --color-accent-light: #E6F2F8;
+}
+
+/* Dark Mode Color Tokens */
+[data-theme="dark"] {
+    /* Color System - Dark Mode */
+    --color-bg-light: #181A1B;
+    --color-bg-subtle: #121314;
+    --color-bg-muted: #0C0D0D;
+    --color-bg-emphasis: #2E2F30;
+    --color-text-primary: #FFFFFF;
+    --color-text-secondary: #B0B0B0;
+    --color-border: #2E2F30;
     
+    /* Accent Colors remain consistent for brand recognition */
+    --color-accent: #006699; /* IBM Heritage Blue */
+    --color-accent-hover: #1985B5;
+    --color-accent-active: #004D73;
+    --color-accent-light: #003A4D;
+}
+
+/* Auto Dark Mode Detection */
+@media (prefers-color-scheme: dark) {
+    :root {
+        /* Color System - Dark Mode */
+        --color-bg-light: #181A1B;
+        --color-bg-subtle: #121314;
+        --color-bg-muted: #0C0D0D;
+        --color-bg-emphasis: #2E2F30;
+        --color-text-primary: #FFFFFF;
+        --color-text-secondary: #B0B0B0;
+        --color-border: #2E2F30;
+        
+        /* Accent light adjusted for dark backgrounds */
+        --color-accent-light: #003A4D;
+    }
+}
+
+/* Override auto detection when explicit theme is set */
+[data-theme="light"] {
+    /* Color System - Light Mode (Explicit) */
+    --color-bg-light: #FFFFFF;
+    --color-bg-subtle: #F8F8F8;
+    --color-bg-muted: #F1F1F1;
+    --color-bg-emphasis: #E0E0E0;
+    --color-text-primary: #111111;
+    --color-text-secondary: #555555;
+    --color-border: #D0D0D0;
+    
+    /* Accent light for light backgrounds */
+    --color-accent-light: #E6F2F8;
+}
+
+:root {
     /* Typography Scale */
     --font-family-sans: 'IBM Plex Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
     --font-family-serif: 'IBM Plex Serif', Georgia, 'Times New Roman', serif;
@@ -406,6 +459,53 @@ pre code {
     color: var(--color-accent-hover);
 }
 
+/* Theme Toggle Button - Special styling for sidebar */
+#theme-toggle {
+    font-family: var(--font-family-sans);
+    font-size: var(--font-size-sm);
+    font-weight: var(--font-weight-medium);
+    border-color: var(--color-text-secondary);
+    color: var(--color-bg-light);
+    background-color: transparent;
+    transition: all var(--motion-duration-base) var(--motion-ease-standard);
+}
+
+#theme-toggle:hover,
+#theme-toggle:focus {
+    background-color: var(--color-text-secondary);
+    color: var(--color-text-primary);
+    border-color: var(--color-accent-light);
+}
+
+/* Dark Mode Button Adjustments */
+[data-theme="dark"] .btn-secondary,
+@media (prefers-color-scheme: dark) {
+    .btn-secondary:not(#theme-toggle) {
+        border-color: var(--color-border);
+        color: var(--color-text-primary);
+    }
+    
+    .btn-secondary:not(#theme-toggle):hover,
+    .btn-secondary:not(#theme-toggle):focus {
+        background-color: var(--color-bg-emphasis);
+        color: var(--color-text-primary);
+        border-color: var(--color-accent);
+    }
+    
+    /* Theme toggle in dark mode */
+    #theme-toggle {
+        border-color: var(--color-text-secondary);
+        color: var(--color-text-primary);
+    }
+    
+    #theme-toggle:hover,
+    #theme-toggle:focus {
+        background-color: var(--color-bg-emphasis);
+        color: var(--color-text-primary);
+        border-color: var(--color-accent);
+    }
+}
+
 /* Forms */
 .form-group {
     margin-bottom: var(--space-4);
@@ -439,6 +539,16 @@ pre code {
     border-color: var(--color-accent);
 }
 
+/* Dark Mode Form Adjustments */
+[data-theme="dark"] .form-input,
+@media (prefers-color-scheme: dark) {
+    .form-input {
+        background-color: var(--color-bg-emphasis);
+        color: var(--color-text-primary);
+        border-color: var(--color-border);
+    }
+}
+
 /* Tables */
 table {
     width: 100%;
@@ -462,6 +572,14 @@ th {
 
 tr:hover {
     background-color: var(--color-bg-subtle);
+}
+
+/* Dark Mode Table Adjustments */
+[data-theme="dark"] tr:hover,
+@media (prefers-color-scheme: dark) {
+    tr:hover {
+        background-color: var(--color-bg-emphasis);
+    }
 }
 
 /* Responsive Design */
@@ -609,6 +727,15 @@ img {
     height: auto;
     border-radius: var(--radius-1);
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+/* Dark Mode Image Adjustments */
+[data-theme="dark"] img,
+@media (prefers-color-scheme: dark) {
+    img {
+        box-shadow: 0 1px 3px rgba(255, 255, 255, 0.1);
+        border: 1px solid var(--color-border);
+    }
 }
 
 /* Horizontal rules */

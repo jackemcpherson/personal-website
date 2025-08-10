@@ -37,17 +37,25 @@ Rules scale type, spacing, and columns. Content never exceeds comfortable line l
 - **Accent:** single corporate blue as the only vivid hue.
 - **Purpose:** neutrals carry design; blue signals interaction and brand.
 
-### Neutral Scale
+### Neutral Scale (Light Mode)
 - Background light: `#FFFFFF` or `#F8F8F8`
 - Background dark: `#F1F1F1` and `#E0E0E0`
 - Text primary: `#111111`
 - Text secondary: `#555555`
 - Borders/hairlines: `#D0D0D0`
 
-### Accent Blue Candidates
-1. **IBM Heritage Blue** – `#006699`
-2. **Mid-century Steel Blue** – `#1B4F72`
-3. **Penguin Modern Blue** – `#0072A3`
+### Neutral Scale (Dark Mode)
+- Background light: `#181A1B`
+- Background dark: `#121314` and `#0C0D0D`
+- Text primary: `#FFFFFF`
+- Text secondary: `#B0B0B0`
+- Borders/hairlines: `#2E2F30`
+
+### Accent Blue
+- **IBM Heritage Blue** – `#006699` (base tone)
+- Lighter for hover/focus: `#1985B5`
+- Darker for active: `#004D73`
+- Accessible on both light and dark backgrounds.
 
 ### Usage Rules
 - Accent for links, hover states, primary buttons, active UI, key brand marks.
@@ -56,6 +64,7 @@ Rules scale type, spacing, and columns. Content never exceeds comfortable line l
 
 ### Accessibility
 - Blue on white must meet AA contrast for text (≥4.5:1).
+- Blue on dark neutrals must meet AA for large and small text.
 - Test both normal and hover/focus states.
 
 ## Spacing Scale
@@ -82,21 +91,26 @@ Rules scale type, spacing, and columns. Content never exceeds comfortable line l
 - Links: accent color, underline on hover/focus. Never remove underline in body.
 - Primary button: filled accent. Secondary: hairline outline. Tertiary: text-only.
 - States: default, hover, active, disabled, focus.
+- Dark mode buttons adjust:
+  - Primary: accent on dark background.
+  - Secondary: light hairline border, lighter hover background.
 
 ## Cards & Sections
 - Solid backgrounds, 1px hairline borders, 4–8px radius.
 - Section headers may use accent or muted panel backgrounds.
+- In dark mode: panels use lighter neutral from dark scale.
 
 ## Forms
 - Inputs: 1px border, 4px radius, generous padding.
 - Labels always visible. No placeholder-only labels.
 - Error: border + helper text. No color-only indication.
 - Focus ring: 2px high-contrast outline outside element.
+- In dark mode: inputs use lighter neutral fills with white text.
 
 ## Tables
 - Dense baseline alignment. Left-align text; right-align numbers.
 - Header row: stronger weight or banded background.
-- Row hover: subtle background change.
+- Row hover: subtle background change using light or dark neutral depending on theme.
 
 ## Content Rules
 - Title case for nav/headings. Sentence case for body.
@@ -108,6 +122,7 @@ Rules scale type, spacing, and columns. Content never exceeds comfortable line l
 - Logical focus order. Keyboard operable.
 - Hit targets ≥40×40px.
 - Alt text for all imagery.
+- Dark mode colors tested for AA compliance.
 
 ## Layout Patterns
 - Hero: text-first left column, optional image right. No carousels.
@@ -117,6 +132,7 @@ Rules scale type, spacing, and columns. Content never exceeds comfortable line l
 ## Elevation & Borders
 - Space and alignment over heavy borders.
 - Borders: 1px hairline. Shadows minimal and neutral.
+- In dark mode: shadows softened or replaced with lighter outlines.
 
 ## State System
 - Tokens for: interactive-hover, interactive-active, focus-ring, disabled-foreground, disabled-surface.
@@ -131,8 +147,13 @@ Rules scale type, spacing, and columns. Content never exceeds comfortable line l
 - Z-layers: `--z-base`, `--z-sticky`, `--z-overlay`, `--z-modal`
 
 ## Theming
-- Light theme default. Dark theme optional with contrast parity.
-- In dark mode: invert luminance ratios, re-test AA.
+- **Light mode default**: as above.
+- **Dark mode**:
+  - Backgrounds shift to near-black/dark neutrals.
+  - Text shifts to white/light neutrals.
+  - Accent color remains consistent for brand recognition.
+  - Hover states use light neutrals for contrast.
+- Maintain contrast parity across modes.
 
 ## Content Imagery
 - Documentary-style photos. B/W or duotone.

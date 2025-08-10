@@ -27,6 +27,57 @@ def Layout(request, *content, title: str):
             ),
             Link(rel="stylesheet", href="/static/css/custom.css"),
             Style(request.state.pygments_css),
+            Script("""
+                // Dark mode toggle functionality
+                (function() {
+                    // Get saved theme or detect system preference
+                    const savedTheme = localStorage.getItem('theme');
+                    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+                    const initialTheme = savedTheme || (systemPrefersDark ? 'dark' : 'light');
+                    
+                    // Apply theme immediately to prevent flash
+                    document.documentElement.setAttribute('data-theme', initialTheme);
+                    
+                    // Wait for DOM to load
+                    document.addEventListener('DOMContentLoaded', function() {
+                        const toggle = document.getElementById('theme-toggle');
+                        const body = document.body;
+                        
+                        // Update toggle button text
+                        function updateToggleText(theme) {
+                            if (toggle) {
+                                toggle.textContent = theme === 'dark' ? '☀️ Light' : '🌙 Dark';
+                                const newMode = theme === 'dark' ? 'light' : 'dark';
+                                toggle.setAttribute('aria-label', `Switch to ${newMode} mode`);
+                            }
+                        }
+                        
+                        // Set initial state
+                        updateToggleText(initialTheme);
+                        
+                        // Toggle theme
+                        if (toggle) {
+                            toggle.addEventListener('click', function() {
+                                const currentTheme = document.documentElement.getAttribute('data-theme');
+                                const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+                                
+                                document.documentElement.setAttribute('data-theme', newTheme);
+                                localStorage.setItem('theme', newTheme);
+                                updateToggleText(newTheme);
+                            });
+                        }
+                        
+                        // Listen for system theme changes
+                        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function(e) {
+                            if (!localStorage.getItem('theme')) {
+                                const newTheme = e.matches ? 'dark' : 'light';
+                                document.documentElement.setAttribute('data-theme', newTheme);
+                                updateToggleText(newTheme);
+                            }
+                        });
+                    });
+                })();
+            """),
         ),
         Body(
             Div(
@@ -37,6 +88,14 @@ def Layout(request, *content, title: str):
                         Li(A("Home", href="/")),
                         Li(A("About", href="/about")),
                         cls="nav-links",
+                    ),
+                    # Dark mode toggle button
+                    Button(
+                        "🌙 Dark",
+                        id="theme-toggle",
+                        cls="btn btn-secondary",
+                        style="margin-top: var(--space-4); width: 100%;",
+                        type="button",
                     ),
                     # This is the corrected 'Recent Posts' section from Issue #2
                     Section(
