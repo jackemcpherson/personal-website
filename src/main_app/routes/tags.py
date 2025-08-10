@@ -14,17 +14,30 @@ def register_tag_routes(app):
     """
 
     @app.get("/tags/{tag}")
-    def tag_posts(request, tag: str):
-        """Display all posts with specific tag.
+    def tag_posts(request, tag: str, page: int = 1):
+        """Display posts with specific tag with pagination.
 
         Args:
             request: HTTP request object with navigation context
             tag: The tag name to filter posts by
+            page: Page number for pagination (default: 1)
 
         Returns:
             Rendered HTML page with filtered posts
         """
-        posts = load_posts_by_tag(tag)
+        posts_per_page = 10
+        all_tag_posts = load_posts_by_tag(tag)
+        total_posts = len(all_tag_posts)
+
+        # Calculate pagination
+        start = (page - 1) * posts_per_page
+        end = start + posts_per_page
+        posts = all_tag_posts[start:end]
+
+        total_pages = (total_posts + posts_per_page - 1) // posts_per_page
+        has_prev = page > 1
+        has_next = page < total_pages
+
         all_tags = get_all_tags()
 
         page_content = (
@@ -66,6 +79,22 @@ def register_tag_routes(app):
                 else [P(f"No posts found with the tag '{tag}'.")],
                 cls="tag-posts-list",
             ),
+            # Pagination
+            Nav(
+                Div(
+                    A("← Previous", href=f"/tags/{tag}?page={page - 1}", cls="pagination-link prev")
+                    if has_prev
+                    else Span("← Previous", cls="pagination-link prev disabled"),
+                    Span(f"Page {page} of {total_pages}", cls="pagination-info"),
+                    A("Next →", href=f"/tags/{tag}?page={page + 1}", cls="pagination-link next")
+                    if has_next
+                    else Span("Next →", cls="pagination-link next disabled"),
+                    cls="pagination",
+                ),
+                cls="pagination-nav",
+            )
+            if total_pages > 1
+            else None,
             Section(
                 H2("All Tags"),
                 P("Browse posts by other tags:"),

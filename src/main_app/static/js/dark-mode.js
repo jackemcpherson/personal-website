@@ -29,6 +29,7 @@
                 toggle.innerHTML = iconSvg;
                 toggle.setAttribute('aria-label', `Switch to ${newMode} mode`);
                 toggle.setAttribute('title', `Switch to ${newMode} mode`);
+                toggle.setAttribute('aria-pressed', theme === 'dark' ? 'true' : 'false');
             }
         }
         

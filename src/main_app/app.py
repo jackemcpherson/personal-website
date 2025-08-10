@@ -2,6 +2,7 @@
 
 from fasthtml.common import *
 from starlette.middleware.base import BaseHTTPMiddleware
+from starlette.middleware.gzip import GZipMiddleware
 from starlette.requests import Request
 from starlette.responses import Response
 
@@ -26,14 +27,15 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
         # Content Security Policy - strict policy for security
         csp = (
             "default-src 'self'; "
-            "style-src 'self' 'unsafe-inline' fonts.googleapis.com; "
-            "font-src 'self' fonts.gstatic.com; "
+            "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; "
+            "font-src 'self' https://fonts.gstatic.com; "
             "img-src 'self' data:; "
             "connect-src 'self'; "
             "script-src 'self'; "
             "object-src 'none'; "
             "base-uri 'self'; "
-            "form-action 'self'"
+            "form-action 'self'; "
+            "upgrade-insecure-requests"
         )
         response.headers["Content-Security-Policy"] = csp
 
@@ -42,6 +44,34 @@ class SecurityHeadersMiddleware(BaseHTTPMiddleware):
         response.headers["X-Content-Type-Options"] = "nosniff"
         response.headers["X-Frame-Options"] = "DENY"
         response.headers["Permissions-Policy"] = "geolocation=(), microphone=(), camera=()"
+
+        return response
+
+
+class CacheControlMiddleware(BaseHTTPMiddleware):
+    """Middleware to add appropriate Cache-Control headers."""
+
+    async def dispatch(self, request: Request, call_next) -> Response:
+        """Add Cache-Control headers based on request path.
+
+        Args:
+            request: The incoming HTTP request
+            call_next: The next middleware or route handler
+
+        Returns:
+            HTTP response with Cache-Control headers added
+        """
+        response = await call_next(request)
+
+        # Long cache for static assets
+        if request.url.path.startswith("/static/"):
+            response.headers["Cache-Control"] = "public, max-age=31536000"  # 1 year
+        # No cache for health endpoint
+        elif request.url.path == "/healthz":
+            response.headers["Cache-Control"] = "no-store"
+        # Short cache for HTML pages
+        else:
+            response.headers["Cache-Control"] = "public, max-age=300"  # 5 minutes
 
         return response
 
@@ -67,13 +97,15 @@ class NavigationMiddleware(BaseHTTPMiddleware):
 
 app = FastHTML()
 
+app.add_middleware(GZipMiddleware, minimum_size=1000)
 app.add_middleware(SecurityHeadersMiddleware)
+app.add_middleware(CacheControlMiddleware)
 app.add_middleware(NavigationMiddleware)
 
 # Mount static files with absolute path
-import os
+from pathlib import Path
 
-static_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "main_app", "static")
+static_dir = Path(__file__).parent / "static"
 app.mount("/static", StaticFiles(directory=static_dir), name="static")
 
 
@@ -94,6 +126,25 @@ register_tag_routes(app)
 def health_check():
     """Health check endpoint for Docker and monitoring."""
     return {"status": "healthy", "service": "personal-website"}
+
+
+# Custom 404 handler
+from starlette.responses import HTMLResponse
+
+
+@app.exception_handler(404)
+def not_found(request, exc):
+    """Custom 404 page with styled layout."""
+    from .components import Layout
+
+    page_content = (
+        H1("Page Not Found", cls="post-title"),
+        P("Sorry, the page you're looking for doesn't exist."),
+        A("← Back to Home", href="/", cls="back-link"),
+    )
+
+    layout_content = Layout(request, *page_content, title="Not Found")
+    return HTMLResponse(str(layout_content), status_code=404)
 
 
 if __name__ == "__main__":

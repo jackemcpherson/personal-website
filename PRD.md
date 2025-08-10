@@ -44,6 +44,7 @@
 *   **3.4. Tag Functionality:**
     *   Clicking a tag link (either on the homepage or a post page) will take the user to a new page.
     *   This page will list all blog posts that share that specific tag.
+    *   **Tag Normalization:** All tags are automatically converted to lowercase for consistency. Authors should be aware that tags are case-insensitive (e.g., "Python", "python", and "PYTHON" will all be treated as "python").
 *   **3.5. Left-Hand Menu:**
     *   Visible on all pages.
     *   Contains links to "Home" and "About".

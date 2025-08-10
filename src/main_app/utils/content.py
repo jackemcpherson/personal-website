@@ -100,6 +100,7 @@ def load_all_posts() -> list[dict[str, Any]]:
             posts.append(post_data)
 
     posts.sort(key=lambda x: x["date"], reverse=True)
+    logger.info(f"Loaded {len(posts)} blog posts")
     return posts
 
 

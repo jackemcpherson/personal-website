@@ -65,3 +65,26 @@ class TestRoutes:
         json_response = response.json()
         assert json_response["status"] == "healthy"
         assert json_response["service"] == "personal-website"
+
+    def test_csp_header_exists(self):
+        """Test that CSP header exists and contains expected directives."""
+        response = self.client.get("/")
+        assert response.status_code == 200
+        assert "Content-Security-Policy" in response.headers
+        csp = response.headers["Content-Security-Policy"]
+        assert "default-src 'self'" in csp
+        assert "upgrade-insecure-requests" in csp
+        assert "https://fonts.googleapis.com" in csp
+        assert "https://fonts.gstatic.com" in csp
+
+    def test_static_css_accessible(self):
+        """Test that static CSS file returns 200."""
+        response = self.client.get("/static/css/custom.css")
+        assert response.status_code == 200
+
+    def test_404_renders_styled_layout(self):
+        """Test that 404 pages render the styled layout."""
+        response = self.client.get("/nonexistent-page")
+        assert response.status_code == 404
+        # Check that it returns the Layout with navigation
+        assert "Personal Blog" in response.text

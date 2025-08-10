@@ -18,6 +18,7 @@ def Layout(request, *content, title: str):
         Head(
             Meta(charset="UTF-8"),
             Meta(name="viewport", content="width=device-width, initial-scale=1.0"),
+            Meta(name="language", content="en"),
             Title(f"{title} - Personal Blog"),
             Link(rel="preconnect", href="https://fonts.googleapis.com"),
             Link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin=True),
@@ -26,10 +27,13 @@ def Layout(request, *content, title: str):
                 href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400;500;600&display=swap",
             ),
             Link(rel="stylesheet", href="/static/css/custom.css"),
+            Link(rel="alternate", type="application/rss+xml", title="RSS Feed", href="/feed.xml"),
             Style(request.state.pygments_css),
             Script(src="/static/js/dark-mode.js"),
         ),
         Body(
+            # Skip to content link for accessibility
+            A("Skip to content", href="#main-content", cls="skip-link"),
             Div(
                 # Sidebar Navigation
                 Nav(
@@ -62,7 +66,7 @@ def Layout(request, *content, title: str):
                     cls="sidebar",
                 ),
                 # Page-specific content is injected here
-                Main(*content, cls="content"),
+                Main(*content, cls="content", id="main-content"),
                 cls="grid-container",
             ),
             # Subtle dark mode toggle button - fixed bottom left
@@ -76,6 +80,7 @@ def Layout(request, *content, title: str):
                 cls="theme-toggle",
                 type="button",
                 title="Toggle dark mode",
+                **{"aria-pressed": "false"},
             ),
         ),
     )

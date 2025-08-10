@@ -291,7 +291,34 @@ Exclude:
 - `.env`
 - IDE files
 
-## 10. Testing & Validation
+## 10. Security Model
+
+### 10.1 Markdown Trust Model
+
+**ASSUMPTION: All blog posts are trusted content authored by the site owner.**
+
+The application processes Markdown files directly without sanitization based on the following security model:
+
+1. **Source Control**: All blog posts are stored in the `/posts` directory and committed to the repository
+2. **Author Trust**: The site owner is the sole author of all content 
+3. **No User Input**: The application does not accept user-generated Markdown content
+4. **Content Security Policy**: CSP headers restrict inline scripts and external resources
+5. **File System Access**: Only pre-existing `.md` files in the designated posts directory are processed
+
+**Security Implications:**
+- Raw HTML in Markdown files will be rendered as-is
+- JavaScript in Markdown content could execute (mitigated by CSP)
+- No protection against malicious Markdown if the source is compromised
+
+**Rationale:** This trust model is appropriate for a personal blog where:
+- The author controls all content creation and deployment
+- Content undergoes review through the git workflow
+- Performance benefits of avoiding sanitization overhead
+- Flexibility to include custom HTML when needed
+
+If this application were to accept untrusted user content in the future, Markdown sanitization with a library like `bleach` or `markdown-safe` would be required.
+
+## 11. Testing & Validation
 
 ### 10.1 Automated Testing Framework
 Set up `pytest` for unit and integration tests:
