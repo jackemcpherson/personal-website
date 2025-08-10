@@ -1,4 +1,8 @@
-# Personal Blog & Portfolio Implementation Plan
+# Personal Website Implementation Plan
+
+**Author:** Jack McPherson  
+**Version:** 1.0  
+**Last Updated:** August 2025  
 
 ## 1. Environment Setup & Project Structure
 

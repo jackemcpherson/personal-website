@@ -1,4 +1,8 @@
-# DESIGN.md
+# Personal Website Design System
+
+**Author:** Jack McPherson  
+**Version:** 1.0  
+**Last Updated:** August 2025  
 
 ## Purpose
 Establish a minimalist, corporate-modern design system inspired by 1960s IBM and Penguin Classics. Prioritize clarity, order, and restraint.
