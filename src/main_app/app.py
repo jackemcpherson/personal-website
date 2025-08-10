@@ -8,6 +8,44 @@ from starlette.responses import Response
 from .utils.content import get_pygments_css, load_recent_posts
 
 
+class SecurityHeadersMiddleware(BaseHTTPMiddleware):
+    """Middleware to add security headers to all responses."""
+
+    async def dispatch(self, request: Request, call_next) -> Response:
+        """Add security headers to response.
+
+        Args:
+            request: The incoming HTTP request
+            call_next: The next middleware or route handler
+
+        Returns:
+            HTTP response with security headers added
+        """
+        response = await call_next(request)
+
+        # Content Security Policy - strict policy for security
+        csp = (
+            "default-src 'self'; "
+            "style-src 'self' 'unsafe-inline' fonts.googleapis.com; "
+            "font-src 'self' fonts.gstatic.com; "
+            "img-src 'self' data:; "
+            "connect-src 'self'; "
+            "script-src 'self'; "
+            "object-src 'none'; "
+            "base-uri 'self'; "
+            "form-action 'self'"
+        )
+        response.headers["Content-Security-Policy"] = csp
+
+        # Additional security headers
+        response.headers["Referrer-Policy"] = "strict-origin-when-cross-origin"
+        response.headers["X-Content-Type-Options"] = "nosniff"
+        response.headers["X-Frame-Options"] = "DENY"
+        response.headers["Permissions-Policy"] = "geolocation=(), microphone=(), camera=()"
+
+        return response
+
+
 class NavigationMiddleware(BaseHTTPMiddleware):
     """Middleware to add navigation context to all requests."""
 
@@ -27,22 +65,16 @@ class NavigationMiddleware(BaseHTTPMiddleware):
         return response
 
 
-app = FastHTML(
-    hdrs=(
-        Link(rel="preconnect", href="https://fonts.googleapis.com"),
-        Link(rel="preconnect", href="https://fonts.gstatic.com", crossorigin=True),
-        Link(
-            rel="stylesheet",
-            href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600;700&family=IBM+Plex+Serif:wght@400;500;600&display=swap",
-        ),
-        Link(rel="stylesheet", href="/static/css/custom.css"),
-    )
-)
+app = FastHTML()
 
+app.add_middleware(SecurityHeadersMiddleware)
 app.add_middleware(NavigationMiddleware)
 
-# Mount static files
-app.mount("/static", StaticFiles(directory="src/main_app/static"), name="static")
+# Mount static files with absolute path
+import os
+
+static_dir = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "main_app", "static")
+app.mount("/static", StaticFiles(directory=static_dir), name="static")
 
 
 # Import and register routes
@@ -57,7 +89,14 @@ register_post_routes(app)
 register_tag_routes(app)
 
 
+# Health check endpoint
+@app.get("/healthz")
+def health_check():
+    """Health check endpoint for Docker and monitoring."""
+    return {"status": "healthy", "service": "personal-website"}
+
+
 if __name__ == "__main__":
     import uvicorn
 
-    uvicorn.run(app, host="0.0.0.0", port=8000, timeout_keep_alive=30, timeout_notify=30)
+    uvicorn.run(app, host="0.0.0.0", port=8000, timeout_keep_alive=30)

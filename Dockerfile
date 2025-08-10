@@ -17,10 +17,10 @@ RUN apt-get update && apt-get install -y \
 RUN pip install uv
 
 # Copy dependency configuration first for better Docker layer caching
-COPY pyproject.toml ./
+COPY pyproject.toml uv.lock README.md ./
 
-# Install dependencies using uv
-RUN uv pip install --system --no-cache .
+# Install dependencies using uv sync (which respects the lock file)
+RUN uv sync --frozen --no-dev --no-install-project
 
 # Copy application source code
 COPY src/ ./src/
@@ -38,7 +38,7 @@ EXPOSE 8000
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 \
-    CMD curl -f http://localhost:8000/ || exit 1
+    CMD curl -f http://localhost:8000/healthz || exit 1
 
-# Run application with uvicorn
-CMD ["uvicorn", "src.main_app.app:app", "--host", "0.0.0.0", "--port", "8000", "--timeout-keep-alive", "30"]
+# Run application with uvicorn using the virtual environment
+CMD [".venv/bin/uvicorn", "src.main_app.app:app", "--host", "0.0.0.0", "--port", "8000", "--timeout-keep-alive", "30"]

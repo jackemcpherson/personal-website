@@ -52,13 +52,13 @@ Thumbs.db
 .git
 .gitignore
 
-# Documentation (exclude docs but keep blog posts)
-README.md
+# Documentation (exclude docs but keep blog posts and README)
 IMPLEMENTATION.md
 PRD.md
 CLAUDE.md
 *.md
 !src/main_app/posts/*.md
+!README.md
 !pyproject.toml
 
 # Pytest

@@ -112,6 +112,38 @@ Rules scale type, spacing, and columns. Content never exceeds comfortable line l
   - 120–200ms duration.
   - Consistent easing curves across UI.
 
+## Social Media Logos
+
+### Style Consistency
+- All social media logos must:
+  - Match the **monoline, flat, geometric** icon style defined above.
+  - Be sourced from a single, unified icon set or custom-designed to match the rest of the site’s icons.
+  - Avoid gradients, drop shadows, and 3D effects.
+
+### Color Rules
+- **Default state:** monochrome (light or dark neutral) to maintain consistency with the overall theme.
+- **Hover/Active state:** may use the accent blue (`#006699`) or the official brand color of the platform **only** if it meets accessibility contrast requirements and does not clash with the core palette.
+- Avoid using multiple brand colors side-by-side in default state; preserve a uniform, minimal appearance.
+
+### Size & Spacing
+- All logos rendered at a consistent visual size (optically balanced, not just matched by pixel dimensions).
+- Minimum touch target: 40×40px.
+- Equal padding around each icon for even visual rhythm.
+
+### Format
+- SVG format preferred for scalability and crisp rendering.
+- Controlled via CSS variables for stroke/fill colors to adapt to light and dark modes.
+
+### Dark Mode Adjustments
+- Light neutral (`#FFFFFF` or `#B0B0B0`) for default state.
+- Accent blue or brand color on hover if accessible.
+- Maintain uniform style with the rest of the UI.
+
+### Placement
+- Group social media links together in a horizontal row or column.
+- Align with grid and spacing system (8px multiples).
+- Avoid oversized logos; keep visual weight balanced with surrounding elements.
+
 ## Motion
 - Functional, subtle: fade, slide, scale.
 - Duration: 120–200ms. Easing: standard in/out.

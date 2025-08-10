@@ -701,6 +701,18 @@ tr:hover {
 }
 
 /* Accessibility & Motion */
+.sr-only {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
     *,
     *::before,
@@ -823,4 +835,58 @@ hr {
 .content p,
 .content li {
     color: var(--color-text-primary);
+}
+
+/* Social Media Links - Following Design System Guidelines */
+.social-links {
+    display: flex;
+    flex-direction: row;
+    gap: var(--space-4);
+    margin-top: var(--space-4);
+}
+
+.social-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-2);
+    padding: var(--space-2) var(--space-3);
+    color: var(--color-text-primary);
+    text-decoration: none;
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-1);
+    font-family: var(--font-family-sans);
+    font-weight: var(--font-weight-medium);
+    font-size: var(--font-size-sm);
+    transition: all var(--motion-duration-fast) var(--motion-ease-standard);
+    min-height: 40px; /* Touch target compliance */
+}
+
+.social-link svg {
+    color: var(--color-text-secondary);
+    transition: color var(--motion-duration-fast) var(--motion-ease-standard);
+}
+
+.social-link:hover,
+.social-link:focus {
+    border-color: var(--color-accent);
+    color: var(--color-accent);
+    background-color: var(--color-accent-light);
+    text-decoration: none;
+}
+
+.social-link:hover svg,
+.social-link:focus svg {
+    color: var(--color-accent);
+}
+
+/* Responsive social links */
+@media (max-width: 480px) {
+    .social-links {
+        flex-direction: column;
+        gap: var(--space-2);
+    }
+    
+    .social-link {
+        justify-content: center;
+    }
 }

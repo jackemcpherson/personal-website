@@ -27,16 +27,26 @@ def register_post_routes(app):
         post = load_post(slug)
 
         if not post:
-            from starlette.responses import HTMLResponse
+            from starlette.responses import Response
 
-            return HTMLResponse(
-                """<!DOCTYPE html>
-                <html>
-                <head><title>Post Not Found</title></head>
-                <body><h1>Post Not Found</h1><p>The requested blog post could not be found.</p></body>
-                </html>""",
-                status_code=404,
+            content_404 = (
+                Header(
+                    H1("Post Not Found", cls="error-title"),
+                    cls="error-header",
+                ),
+                Section(
+                    P("The requested blog post could not be found.", cls="error-message"),
+                    P(
+                        A("← Back to Home", href="/", cls="back-link"),
+                        " or ",
+                        A("Browse all posts", href="/", cls="back-link"),
+                    ),
+                    cls="error-content",
+                ),
             )
+
+            layout_html = str(Layout(request, *content_404, title="Post Not Found"))
+            return Response(content=layout_html, media_type="text/html", status_code=404)
 
         page_content = (
             Header(

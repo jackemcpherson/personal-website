@@ -1,5 +1,6 @@
 """Content management utilities for blog posts."""
 
+import logging
 from datetime import date, datetime
 from functools import lru_cache
 from pathlib import Path
@@ -8,6 +9,8 @@ from typing import Any
 import frontmatter
 import markdown
 from pygments.formatters import HtmlFormatter
+
+logger = logging.getLogger(__name__)
 
 
 def _get_posts_directory() -> Path:
@@ -44,11 +47,15 @@ def _parse_post_file(file_path: Path) -> dict[str, Any] | None:
 
         html_content = md.convert(post.content)
 
+        # Normalize tags to lowercase for consistency
+        tags = post.metadata.get("tags", [])
+        normalized_tags = [tag.lower().strip() for tag in tags] if tags else []
+
         post_data = {
             "slug": file_path.stem,
             "title": post.metadata.get("title", "Untitled"),
             "date": post.metadata.get("date"),
-            "tags": post.metadata.get("tags", []),
+            "tags": normalized_tags,
             "excerpt": post.metadata.get("excerpt", ""),
             "content": html_content,
             "raw_content": post.content,
@@ -69,7 +76,8 @@ def _parse_post_file(file_path: Path) -> dict[str, Any] | None:
 
         return post_data
 
-    except Exception:
+    except Exception as e:
+        logger.error(f"Failed to parse post file {file_path}: {e}")
         return None
 
 
@@ -137,7 +145,8 @@ def load_posts_by_tag(tag: str) -> list[dict[str, Any]]:
         List of post dictionaries that contain the specified tag
     """
     all_posts = load_all_posts()
-    return [post for post in all_posts if tag in post["tags"]]
+    normalized_tag = tag.lower().strip()
+    return [post for post in all_posts if normalized_tag in post["tags"]]
 
 
 def get_all_tags() -> list[str]:
@@ -155,6 +164,7 @@ def get_all_tags() -> list[str]:
     return sorted(list(tags))
 
 
+@lru_cache(maxsize=1)
 def get_pygments_css() -> str:
     """Generate CSS for Pygments syntax highlighting.
 
@@ -173,3 +183,4 @@ def clear_content_cache():
     """
     load_all_posts.cache_clear()
     load_post.cache_clear()
+    get_pygments_css.cache_clear()

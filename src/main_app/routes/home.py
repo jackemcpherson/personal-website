@@ -26,6 +26,7 @@ def register_home_routes(app):
         posts = load_all_posts()
 
         page_content = (
+            H1("Jack McPherson's Blog", cls="sr-only"),
             Section(
                 *[
                     Article(

@@ -37,7 +37,7 @@ class TestRoutes:
         response = self.client.get("/")
         assert response.status_code == 200
         assert "Personal Blog" in response.text
-        assert "Welcome to my personal blog" in response.text
+        assert "Jack McPherson" in response.text and "Blog" in response.text
 
     def test_about_route_exists(self):
         """Test that about route is accessible and contains expected content."""
@@ -57,3 +57,11 @@ class TestRoutes:
         assert response.status_code == 200
         assert "All Tags" in response.text
         assert "Browse all" in response.text
+
+    def test_health_endpoint(self):
+        """Test that health endpoint returns proper response."""
+        response = self.client.get("/healthz")
+        assert response.status_code == 200
+        json_response = response.json()
+        assert json_response["status"] == "healthy"
+        assert json_response["service"] == "personal-website"
